@@ -11,10 +11,7 @@ nav.navbar.navbar-default
     /! Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       ul.nav.navbar-nav
-        li.active
-          a href="#"
-            | Link
-            span.sr-only (current)
+        li = link_to "Shops", admin_shops_path
         li
           a href="#"  Link
         li.dropdown
@@ -39,11 +36,10 @@ nav.navbar.navbar-default
           input.form-control placeholder="Search" type="text" /
         button.btn.btn-default type="submit"  Submit
       ul.nav.navbar-nav.navbar-right
-        li
-          a href="#"  Link
         li.dropdown
           a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
-            | Dropdown
+            = current_user.first_name
+            '
             span.caret
           ul.dropdown-menu
             li
@@ -53,7 +49,6 @@ nav.navbar.navbar-default
             li
               a href="#"  Something else here
             li.divider role="separator"
-            li
-              a href="#"  Separated link
+            li = link_to "Logout", destroy_user_session_path, method: :delete
     /! /.navbar-collapse
   /! /.container-fluid

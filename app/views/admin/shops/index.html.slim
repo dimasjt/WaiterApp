@@ -1,6 +1,6 @@
 h1 Listing shops
 
-table
+table.table.table-hover
   thead
     tr
       th Name
@@ -14,9 +14,9 @@ table
       tr
         td = shop.name
         td = shop.city
-        td = link_to 'Show', shop
-        td = link_to 'Edit', edit_shop_path(shop)
-        td = link_to 'Destroy', shop, data: { confirm: 'Are you sure?' }, method: :delete
+        td = link_to 'Show', [:admin, shop]
+        td = link_to 'Edit', edit_admin_shop_path(shop)
+        td = link_to 'Destroy', [:admin, shop], data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 

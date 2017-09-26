@@ -25,7 +25,7 @@
 #  first_name             :string
 #  last_name              :string
 #  phone                  :string
-#  role                   :integer          default(0)
+#  role                   :integer          default("admin")
 #
 # Indexes
 #

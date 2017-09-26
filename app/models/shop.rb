@@ -21,6 +21,8 @@
 
 class Shop < ApplicationRecord
   belongs_to :user
+  has_many :categories
+  has_many :products
 
   validates :name, :city, presence: true
 end
