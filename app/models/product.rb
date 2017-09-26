@@ -25,4 +25,6 @@
 class Product < ApplicationRecord
   belongs_to :shop
   belongs_to :category
+
+  delegate :name, to: :category, prefix: true
 end

@@ -59,5 +59,6 @@ gem "jwt"
 gem "kaminari"
 gem "mini_magick"
 gem "slim-rails"
+gem "simple_form"
 
 gem 'graphiql-rails', group: :development
