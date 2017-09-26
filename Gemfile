@@ -30,6 +30,7 @@ group :development do
   gem "spring-watcher-listen", "~> 2.0.0"
 
   gem "annotate"
+  gem "graphiql-rails"
   gem "guard", require: false
   gem "guard-bundler", require: false
   gem "rubocop", require: false
@@ -52,8 +53,11 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "bootstrap-sass"
 gem "carrierwave"
 gem "devise"
+gem "graphql"
 gem "jquery-rails"
 gem "jwt"
 gem "kaminari"
 gem "mini_magick"
 gem "slim-rails"
+
+gem 'graphiql-rails', group: :development
