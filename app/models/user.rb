@@ -25,6 +25,14 @@
 #  first_name             :string
 #  last_name              :string
 #  phone                  :string
+#  role                   :integer          default(0)
+#
+# Indexes
+#
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 
 require "jwt"
@@ -35,7 +43,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :shops, dependent: :destroy
+
   validates :first_name, :last_name, :phone, presence: true
+
+  enum role: %w[admin waiter]
 
   def self.api_auth
     %w[id first_name last_name email phone]
