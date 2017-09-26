@@ -57,6 +57,13 @@ class User < ApplicationRecord
     %w[token]
   end
 
+  def self.authenticate(token_param)
+    decoded = JWT.decode(token_param, nil, false).try(:first)
+    User.find(decoded["id"])
+  rescue JWT::DecodeError, ActiveRecord::RecordNotFound
+    nil
+  end
+
   def token
     JWT.encode(to_api(:auth), nil, "none")
   end

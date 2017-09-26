@@ -4,7 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string
-#  price       :string
+#  price       :decimal(, )      default(0.0)
 #  shop_id     :integer
 #  image       :string
 #  category_id :integer

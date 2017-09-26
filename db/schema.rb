@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170926033113) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.string "price"
+    t.decimal "price", default: "0.0"
     t.bigint "shop_id"
     t.string "image"
     t.bigint "category_id"

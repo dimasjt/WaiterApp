@@ -58,6 +58,7 @@ gem "jquery-rails"
 gem "jwt"
 gem "kaminari"
 gem "mini_magick"
+gem "money"
 gem "slim-rails"
 gem "simple_form"
 

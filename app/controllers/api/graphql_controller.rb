@@ -4,11 +4,15 @@ class Api::GraphqlController < Api::BaseController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user,
+      current_shop: current_shop
     }
     result = WaiterAppSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
+  end
+
+  def current_shop
+    @current_shop ||= current_user ? current_user.shops.first : nil
   end
 
   private
