@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :shops
     resources :products
     resources :categories
+    resources :users
   end
 
   namespace :api, default: { format: :json } do

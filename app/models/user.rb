@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string           default(""), not null
+#  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -26,12 +26,15 @@
 #  last_name              :string
 #  phone                  :string
 #  role                   :integer          default("admin")
+#  pin                    :string(4)
+#  shop_id                :integer
 #
 # Indexes
 #
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_shop_id               (shop_id)
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 
@@ -66,5 +69,15 @@ class User < ApplicationRecord
 
   def token
     JWT.encode(to_api(:auth), nil, "none")
+  end
+
+  protected
+
+  def password_required?
+    role != "waiter"
+  end
+
+  def email_required?
+    role != "waiter"
   end
 end
