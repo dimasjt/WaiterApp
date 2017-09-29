@@ -1,6 +1,6 @@
 class Functions::CreateProduct < GraphQL::Function
   ProductInput = GraphQL::InputObjectType.define do
-    name "Product"
+    name "CreateProduct"
 
     argument :name, !types.String
     argument :price, !types.Int
