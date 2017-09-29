@@ -1,0 +1,16 @@
+id:
+  activerecord:
+    models:
+      user: Staff
+      shop: Toko
+      product: Produk
+      category: Kategori
+      order: Order
+    attributes:
+      user:
+        first_name: Nama depan
+        last_name: Nama belakang
+        phone: No Handphone
+      product:
+        price: Harga
+        name: Nama

@@ -1,0 +1,17 @@
+h1 Listing orders
+
+table.table.table-hover.table-stripped
+  thead
+    tr
+      th Number
+      th Total
+      th Payment method
+      th
+
+  tbody
+    - @orders.each do |order|
+      tr
+        td = order.number
+        td = order.total
+        td = order.payment_method
+        td = link_to 'Show', [:admin, order]

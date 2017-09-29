@@ -51,15 +51,15 @@ end
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "bootstrap-sass"
+gem "font-awesome-rails"
+gem "jquery-rails"
+
 gem "carrierwave"
 gem "devise"
 gem "graphql"
-gem "jquery-rails"
 gem "jwt"
 gem "kaminari"
 gem "mini_magick"
 gem "money"
-gem "slim-rails"
 gem "simple_form"
-
-gem 'graphiql-rails', group: :development
+gem "slim-rails"

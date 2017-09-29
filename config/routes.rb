@@ -8,10 +8,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :admin do
+    root to: redirect("/admin/orders")
+
     resources :shops
     resources :products
     resources :categories
     resources :users
+    resources :orders
   end
 
   namespace :api, default: { format: :json } do
