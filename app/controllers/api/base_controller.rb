@@ -1,5 +1,6 @@
 class Api::BaseController < ApplicationController
   before_action :authenticate_by_token!
+  skip_before_action :verify_authenticity_token
 
   def json_errors(obj)
     {
