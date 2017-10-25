@@ -4,35 +4,18 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Drawer,
-  List,
-  Divider,
+  Typography,
 } from "material-ui"
 import {
-  ListItem,
-  ListItemIcon,
-  ListItemText
-} from "material-ui/List"
-import { Menu as MenuIcon } from "material-ui-icons"
+  Menu as MenuIcon,
+  Add as AddIcon,
+} from "material-ui-icons"
+
+import AppDrawer from "./AppDrawer"
 
 import HomePage from "../pages/HomePage"
 import ProductsPage from "../pages/ProductsPage"
-
-const AppDrawer = ({ open, toggleDrawer }) => (
-  <Drawer
-    open={open}
-    onRequestClose={toggleDrawer}
-  >
-    <List>
-      <ListItem button>
-        <ListItemIcon>
-          <MenuIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
-    </List>
-  </Drawer>
-)
+import AddProductPage from "../pages/AddProductPage"
 
 class Routes extends Component {
   state = {
@@ -54,6 +37,12 @@ class Routes extends Component {
               <IconButton onClick={this.toggleDrawer}>
                 <MenuIcon />
               </IconButton>
+              <Typography type="title">
+                Title
+              </Typography>
+              <IconButton>
+                <AddIcon />
+              </IconButton>
             </Toolbar>
           </AppBar>
 
@@ -64,7 +53,8 @@ class Routes extends Component {
 
           <Switch>
             <Route path="/home" component={HomePage} />
-            <Route path="/products" component={ProductsPage} />
+            <Route exact path="/products" component={ProductsPage} />
+            <Route path="/products/new" component={AddProductPage} />
           </Switch >
         </div>
       </Router>
