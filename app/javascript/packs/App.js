@@ -1,13 +1,9 @@
 import React from "react"
-import { render } from "react-dom"
+
+import Routes from "./components/Routes"
 
 const App = () => (
-  <div>hello</div>
+  <Routes />
 )
 
-const rootNode = document.getElementById("root")
-
-render(
-  <App />,
-  rootNode,
-)
+export default App
