@@ -32,7 +32,7 @@ class Routes extends Component {
     return (
       <Router basename="/app">
         <div>
-          <AppBar position="static">
+          <AppBar position="fixed">
             <Toolbar>
               <IconButton onClick={this.toggleDrawer}>
                 <MenuIcon />
