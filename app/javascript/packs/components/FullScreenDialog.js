@@ -21,7 +21,7 @@ class FullScreenDialog extends Component {
         open
         onRequestClose={this.redirectBack}
       >
-        <AppBar>
+        <AppBar position="static">
           <Toolbar>
             <IconButton>
               <CloseIcon />
