@@ -22,4 +22,6 @@ Rails.application.routes.draw do
 
     post "/graphql", to: "graphql#execute"
   end
+
+  get "app", to: "pages#app"
 end
