@@ -10,7 +10,7 @@ networkInterface.use([{
       req.options.headers = {}
     }
 
-    const token = window.localStorage.getItem("auth_token")
+    const token = window.localStorage.getItem("token")
     req.options.headers.authorization = token ? `Bearer ${token}` : null
     next()
   }

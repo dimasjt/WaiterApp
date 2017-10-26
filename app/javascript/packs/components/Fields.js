@@ -1,6 +1,6 @@
-import TextField from "./forms/TextField"
-// import AutoComplete from "./forms/AutoComplete"
-import SelectField from "./forms/SelectField"
+import TextField from "./fields/TextField"
+// import AutoComplete from "./fields/AutoComplete"
+import SelectField from "./fields/SelectField"
 
 export {
   TextField,

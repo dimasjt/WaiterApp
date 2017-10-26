@@ -1,13 +1,11 @@
 import React, { Component } from "react"
-import { reduxForm } from "redux-form"
 import { withStyles } from "material-ui/styles"
-import { Button } from "material-ui"
-import { compose, graphql } from "react-apollo"
+import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
 
-import { TextField, SelectField } from "../components/Fields"
+import ProductForm from "../components/forms/ProductForm"
 
-import { GET_CATEGORIES } from "../queries"
+import { CREATE_PRODUCT } from "../mutations"
 
 const styles = (theme) => ({
   root: {
@@ -17,39 +15,31 @@ const styles = (theme) => ({
 
 class AddProductPage extends Component {
   render() {
-    const { classes, data } = this.props
-    const categories = data.categories || []
+    const { classes } = this.props
 
     return (
-      <form className={classes.root}>
-        <TextField name="name" />
-        <TextField name="price" />
-        <TextField name="sku" label="SKU" />
-        <TextField name="description" multiline />
-        <SelectField name="category_id" label="Category" options={categories} />
-        <Button>
-          Submit
-        </Button>
-      </form>
+      <div className={classes.root}>
+        <ProductForm onSubmit={this.props.createProduct} />
+      </div>
     )
   }
 }
 
 AddProductPage.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.shape({
-    categories: PropTypes.array.isRequired,
-  }),
+  createProduct: PropTypes.func.isRequired,
 }
 
-const ConnectForm = reduxForm({
-  form: "addProduct"
-})(AddProductPage)
+const ConnectStyle = withStyles(styles)(AddProductPage)
 
-const ConnectStyle = withStyles(styles)(ConnectForm)
-
-const ConnectGraphQL = compose(
-  graphql(GET_CATEGORIES)
-)(ConnectStyle)
+const ConnectGraphQL = graphql(CREATE_PRODUCT, {
+  props: ({ mutate }) => ({
+    createProduct(product) {
+      mutate({ variables: { product } }).then(() => {
+        console.log("success")
+      })
+    }
+  })
+})(ConnectStyle)
 
 export default ConnectGraphQL
