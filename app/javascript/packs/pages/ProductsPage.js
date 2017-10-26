@@ -15,21 +15,27 @@ import {
   Delete as DeleteIcon,
   ModeEdit as EditIcon,
 } from "material-ui-icons"
+import { graphql } from "react-apollo"
+import PropTypes from "prop-types"
 
-const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+import { GET_PRODUCTS } from "../queries"
 
 class ProductsPage extends Component {
   render() {
-    const items = list.map((i) => (
-      <ListItem button key={i}>
+    const { products, loading } = this.props.data
+
+    if (loading) { return null }
+
+    const items = products.map((product) => (
+      <ListItem button key={product.id}>
         <ListItemAvatar>
           <Avatar>
             <FolderIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText
-          primary={`Product name ${i}`}
-          secondary="Price Rp. 40.000"
+          primary={product.name}
+          secondary={product.price.human}
         />
         <ListItemSecondaryAction>
           <IconButton>
@@ -51,4 +57,11 @@ class ProductsPage extends Component {
   }
 }
 
-export default ProductsPage
+ProductsPage.propTypes = {
+  data: PropTypes.shape({
+    loading: PropTypes.bool,
+    products: PropTypes.arrayOf(PropTypes.object)
+  }).isRequired,
+}
+
+export default graphql(GET_PRODUCTS)(ProductsPage)

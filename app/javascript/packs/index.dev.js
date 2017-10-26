@@ -6,10 +6,10 @@ import App from "./App"
 
 const rootNode = document.getElementById("root")
 
-const renderComponent = () => {
+const renderComponent = (Component) => {
   render(
     <AppContainer>
-      <App />
+      <Component />
     </AppContainer>,
     rootNode,
   )
@@ -17,8 +17,8 @@ const renderComponent = () => {
 
 if (module.hot) {
   module.hot.accept("./App", () => {
-    renderComponent()
+    renderComponent(App)
   })
 }
 
-renderComponent()
+renderComponent(App)
