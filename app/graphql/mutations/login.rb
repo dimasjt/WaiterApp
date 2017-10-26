@@ -1,4 +1,4 @@
-class Functions::Login < GraphQL::Function
+class Mutations::Login < GraphQL::Function
   argument :user, !Types::AuthType
   type Types::TokenType
 

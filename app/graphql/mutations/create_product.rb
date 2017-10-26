@@ -1,4 +1,4 @@
-class Functions::CreateProduct < GraphQL::Function
+class Mutations::CreateProduct < GraphQL::Function
   ProductInput = GraphQL::InputObjectType.define do
     name "CreateProduct"
 
