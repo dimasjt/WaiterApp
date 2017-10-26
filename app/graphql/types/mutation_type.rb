@@ -4,6 +4,6 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :login, function: Mutations::Login.new
   field :register, function: Mutations::Register.new
 
-  field :create_product, function: Mutations::CreateProduct.new
+  field :createProduct, function: Mutations::CreateProduct.new
   field :deleteProduct, function: Mutations::DeleteProduct.new
 end
