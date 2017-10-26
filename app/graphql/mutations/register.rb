@@ -1,4 +1,4 @@
-class Functions::Register < GraphQL::Function
+class Mutations::Register < GraphQL::Function
   RegisterInput = GraphQL::InputObjectType.define do
     name "Register"
 

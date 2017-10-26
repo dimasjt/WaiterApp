@@ -22,4 +22,7 @@ Rails.application.routes.draw do
 
     post "/graphql", to: "graphql#execute"
   end
+
+  get "app", to: redirect("app/home")
+  get "app/*path", to: "pages#app"
 end
