@@ -15,12 +15,16 @@ import {
   Delete as DeleteIcon,
   ModeEdit as EditIcon,
 } from "material-ui-icons"
-import { graphql } from "react-apollo"
+import { graphql, compose } from "react-apollo"
 import PropTypes from "prop-types"
 
 import { GET_PRODUCTS } from "../queries"
+import { DELETE_PRODUCT } from "../mutations"
 
 class ProductsPage extends Component {
+  deleteProduct = () => {
+
+  }
   render() {
     const { products, loading } = this.props.data
 
@@ -41,7 +45,7 @@ class ProductsPage extends Component {
           <IconButton>
             <EditIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => this.props.deleteProduct(product.id)}>
             <DeleteIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -62,6 +66,18 @@ ProductsPage.propTypes = {
     loading: PropTypes.bool,
     products: PropTypes.arrayOf(PropTypes.object)
   }).isRequired,
+  deleteProduct: PropTypes.func.isRequired,
 }
 
-export default graphql(GET_PRODUCTS)(ProductsPage)
+export default compose(
+  graphql(GET_PRODUCTS),
+  graphql(DELETE_PRODUCT, {
+    props: ({ ownProps, mutate }) => ({
+      deleteProduct(id) {
+        mutate({ variables: { id } }).then(() => {
+          ownProps.data.refetch()
+        })
+      }
+    })
+  }),
+)(ProductsPage)
