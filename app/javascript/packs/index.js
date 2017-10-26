@@ -5,7 +5,18 @@ import App from "./App"
 
 const rootNode = document.getElementById("root")
 
-render(
-  <App />,
-  rootNode,
-)
+const renderComponent = () => {
+  render(
+    <App />,
+    rootNode,
+  )
+}
+
+if (module.hot) {
+  module.hot.accept("./index.js", () => {
+    console.log("HMR Accept")
+    renderComponent()
+  })
+}
+
+renderComponent()
