@@ -4915,6 +4915,10 @@ reduce-function-call@^1.0.1, reduce-function-call@^1.0.2:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-form-material-ui@^5.0.0-beta.1:
+  version "5.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/redux-form-material-ui/-/redux-form-material-ui-5.0.0-beta.1.tgz#92ef8e96dd5bf97be32d0d12b3e5108aa1d1bc5e"
+
 redux-form@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-7.1.1.tgz#4d9ab1d9c03beb3a8b5f8e5d0f398cff4209081f"

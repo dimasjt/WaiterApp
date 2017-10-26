@@ -1,20 +1,43 @@
 import React, { Component } from "react"
+import { reduxForm } from "redux-form"
+import { withStyles } from "material-ui/styles"
+import { Button } from "material-ui"
+import PropTypes from "prop-types"
 
-import FullScreenDialog from "../components/FullScreenDialog"
+import { TextField } from "../components/Fields"
+
+const styles = (theme) => ({
+  root: {
+    padding: 12,
+  },
+})
 
 class AddProductPage extends Component {
-  redirectBack = () => {
-    console.log("redirect")
-  }
   render() {
+    const { classes } = this.props
+
     return (
-      <FullScreenDialog
-        title="Add New Product"
-      >
-        <div>Ahai</div>
-      </FullScreenDialog>
+      <form className={classes.root}>
+        <TextField name="name" />
+        <TextField name="price" />
+        <TextField name="sku" label="SKU" />
+        <TextField name="description" multiline />
+        <Button>
+          Submit
+        </Button>
+      </form>
     )
   }
 }
 
-export default AddProductPage
+AddProductPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+const ConnectForm = reduxForm({
+  form: "addProduct"
+})(AddProductPage)
+
+const ConnectStyle = withStyles(styles)(ConnectForm)
+
+export default ConnectStyle
