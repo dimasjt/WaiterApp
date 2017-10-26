@@ -3,6 +3,7 @@ import {
   List,
   Avatar,
   IconButton,
+  Button,
 } from "material-ui"
 import {
   ListItem,
@@ -21,10 +22,26 @@ import PropTypes from "prop-types"
 import { GET_PRODUCTS } from "../queries"
 import { DELETE_PRODUCT } from "../mutations"
 
-class ProductsPage extends Component {
-  deleteProduct = () => {
+import confirm from "../util/confirm"
 
+class ProductsPage extends Component {
+  state = {
+    openDialog: false,
   }
+
+  onRequestClose = (value) => {
+    console.log(value)
+    this.setState({ openDialog: false })
+  }
+
+  handleConfirm = () => {
+    confirm().then(() => {
+      console.log("OK")
+    }, () => {
+      console.log("Cancel")
+    })
+  }
+
   render() {
     const { products, loading } = this.props.data
 
@@ -74,9 +91,11 @@ export default compose(
   graphql(DELETE_PRODUCT, {
     props: ({ ownProps, mutate }) => ({
       deleteProduct(id) {
-        mutate({ variables: { id } }).then(() => {
-          ownProps.data.refetch()
-        })
+        confirm().then(() => {
+          mutate({ variables: { id } }).then(() => {
+            ownProps.data.refetch()
+          })
+        }, () => { })
       }
     })
   }),

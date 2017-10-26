@@ -4705,6 +4705,10 @@ react-apollo@1:
     object-assign "^4.0.1"
     prop-types "^15.5.8"
 
+react-confirm@^0.1.16:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/react-confirm/-/react-confirm-0.1.16.tgz#953ceec7ba736867226d7032aa01ab4a5da82438"
+
 react-deep-force-update@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.1.1.tgz#8ea4263cd6455a050b37445b3f08fd839d86e909"
