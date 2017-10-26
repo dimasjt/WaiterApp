@@ -16,4 +16,11 @@ Types::QueryType = GraphQL::ObjectType.define do
       ctx[:current_shop].users.waiter
     }
   end
+
+  field :categories do
+    type types[Types::CategoryType]
+    resolve -> (obj, args, ctx) {
+      Category.all
+    }
+  end
 end
