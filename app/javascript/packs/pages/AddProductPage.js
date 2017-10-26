@@ -2,9 +2,12 @@ import React, { Component } from "react"
 import { reduxForm } from "redux-form"
 import { withStyles } from "material-ui/styles"
 import { Button } from "material-ui"
+import { compose, graphql } from "react-apollo"
 import PropTypes from "prop-types"
 
 import { TextField, SelectField } from "../components/Fields"
+
+import { GET_CATEGORIES } from "../queries"
 
 const styles = (theme) => ({
   root: {
@@ -12,16 +15,10 @@ const styles = (theme) => ({
   },
 })
 
-const options = [
-  { id: 1, name: "Main" },
-  { id: 2, name: "Drink" },
-  { id: 3, name: "Beverage" },
-  { id: 4, name: "Snack" },
-]
-
 class AddProductPage extends Component {
   render() {
-    const { classes } = this.props
+    const { classes, data } = this.props
+    const categories = data.categories || []
 
     return (
       <form className={classes.root}>
@@ -29,7 +26,7 @@ class AddProductPage extends Component {
         <TextField name="price" />
         <TextField name="sku" label="SKU" />
         <TextField name="description" multiline />
-        <SelectField name="category_id" label="Category" options={options} />
+        <SelectField name="category_id" label="Category" options={categories} />
         <Button>
           Submit
         </Button>
@@ -40,6 +37,9 @@ class AddProductPage extends Component {
 
 AddProductPage.propTypes = {
   classes: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    categories: PropTypes.array.isRequired,
+  }),
 }
 
 const ConnectForm = reduxForm({
@@ -48,4 +48,8 @@ const ConnectForm = reduxForm({
 
 const ConnectStyle = withStyles(styles)(ConnectForm)
 
-export default ConnectStyle
+const ConnectGraphQL = compose(
+  graphql(GET_CATEGORIES)
+)(ConnectStyle)
+
+export default ConnectGraphQL
