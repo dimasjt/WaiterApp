@@ -56,6 +56,7 @@ gem "jquery-rails"
 
 gem "carrierwave"
 gem "devise"
+gem "fog"
 gem "graphql"
 gem "jwt"
 gem "kaminari"
