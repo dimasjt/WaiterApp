@@ -30,6 +30,7 @@ group :development do
   gem "spring-watcher-listen", "~> 2.0.0"
 
   gem "annotate"
+  gem "graphiql-rails"
   gem "guard", require: false
   gem "guard-bundler", require: false
   gem "rubocop", require: false
@@ -49,8 +50,17 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem "bootstrap-sass"
+gem "font-awesome-rails"
+gem "jquery-rails"
+
 gem "carrierwave"
 gem "devise"
+gem "graphql"
+gem "jwt"
 gem "kaminari"
 gem "mini_magick"
+gem "money"
+gem "simple_form"
 gem "slim-rails"
+gem "webpacker"

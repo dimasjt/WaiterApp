@@ -1,0 +1,43 @@
+nav.navbar.navbar-default
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed aria-expanded="false" data-target="#main-navbar" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to "WaiterApp", admin_shops_path, class: "navbar-brand"
+    #main-navbar.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li = link_to t("activerecord.models.shop"), admin_shops_path
+        li = link_to t("activerecord.models.order"), admin_orders_path
+        li.dropdown
+          = link_to admin_products_path, class: "dropdown-toggle", data: { toggle: "dropdown" }
+            = t("activerecord.models.product")
+            '
+            span.caret
+          ul.dropdown-menu
+            li = link_to t("activerecord.models.product"), admin_products_path
+            li = link_to t("activerecord.models.category"), admin_categories_path
+        li = link_to t("activerecord.models.user"), admin_users_path
+
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+            = current_user.first_name
+            '
+            span.caret
+          ul.dropdown-menu
+            li
+              a href="#"  Action
+            li
+              a href="#"  Another action
+            li
+              a href="#"  Something else here
+            li.divider role="separator"
+            li = link_to "Logout", destroy_user_session_path, method: :delete
+      form.navbar-form.navbar-right
+        .form-group
+          input.form-control placeholder="Search" type="text" /
+        '
+        button.btn.btn-default type="submit"  Submit

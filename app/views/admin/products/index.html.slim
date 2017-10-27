@@ -1,0 +1,23 @@
+h1 Listing products
+
+table.table.table-hover.table-striped
+  thead
+    tr
+      th = Product.human_attribute_name(:name)
+      th = Product.human_attribute_name(:price)
+      th = Category.model_name.human
+      th
+      th
+
+  tbody
+    - @products.each do |product|
+      tr
+        td = link_to product.name, admin_product_path(product)
+        td = product.price
+        td = product.category_name
+        td = link_to fa_icon("pencil"), edit_admin_product_path(product), class: "btn btn-default btn-sm"
+        td = link_to fa_icon("trash"), [:admin, product], data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-default btn-sm"
+
+br
+
+= link_to 'New Product', new_admin_product_path

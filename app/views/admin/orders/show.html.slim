@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Number:
+  = @order.number
+p
+  strong Total:
+  = @order.total
+p
+  strong Sub total:
+  = @order.sub_total
+p
+  strong Discount:
+  = @order.discount
+p
+  strong Payment method:
+  = @order.payment_method
+p
+  strong Shop:
+  = @order.shop
+
+= link_to 'Edit', edit_order_path(@order)
+'  |
+= link_to 'Back', orders_path
