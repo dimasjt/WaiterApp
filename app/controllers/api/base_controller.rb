@@ -9,10 +9,15 @@ class Api::BaseController < ApplicationController
   end
 
   def authenticate_by_token!
-    token = request.headers["Authorization"].try(:sub, /Bearer /, "")
+    if Rails.env.development?
+      user = User.find_by email: "rick@mailinator.com"
+      sign_in user
+    else
+      token = request.headers["Authorization"].try(:sub, /Bearer /, "")
 
-    if token && user = User.authenticate(token)
-      sign_in user, store: false
+      if token && user = User.authenticate(token)
+        sign_in user, store: false
+      end
     end
   end
 end
