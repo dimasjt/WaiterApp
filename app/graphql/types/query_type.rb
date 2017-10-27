@@ -4,9 +4,8 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :products do
     type types[Types::ProductType]
     resolve ->(obj, args, ctx) {
-      # return [] unless ctx[:current_shop].present?
-      # ctx[:current_shop].products
-      Product.all
+      return [] unless ctx[:current_shop].present?
+      ctx[:current_shop].products
     }
   end
 

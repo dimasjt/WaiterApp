@@ -7,4 +7,5 @@ Types::ProductType = GraphQL::ObjectType.define do
   field :sku, types.String
   field :description, types.String
   field :category_name, types.String
+  field :image, Types::Format::ImageType
 end
