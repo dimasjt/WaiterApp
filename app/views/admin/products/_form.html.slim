@@ -1,0 +1,14 @@
+= simple_form_for [:admin, @product] do |f|
+  = f.error_notification
+
+  = f.input :name
+  = f.input :price
+  = f.input :category_id, collection: Category.pluck(:name, :id)
+  = f.input :description
+  = f.input :sku
+  = f.input :barcode
+  = f.input :image, as: :file
+
+  = f.button :submit
+  '
+  = link_to t("global.back"), admin_products_path, class: "btn btn-default"
