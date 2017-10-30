@@ -12,6 +12,7 @@ import {
 } from "material-ui/List"
 import {
   Remove as RemoveIcon,
+  Add as AddIcon,
 } from "material-ui-icons"
 import { withStyles } from "material-ui/styles"
 import { connect } from "react-redux"
@@ -20,9 +21,19 @@ import PropTypes from "prop-types"
 
 import * as cartActions from "../actions/cart"
 
-const styleSheet = () => ({
+const styleSheet = (theme) => ({
+  container: {
+    paddingLeft: 15,
+  },
   action: {
-    position: "relative",
+    left: "8px",
+    marginTop: "-17px",
+  },
+  button: {
+    width: 32,
+    height: 32,
+    backgroundColor: "orange",
+    color: "white",
   },
   item: {
     display: "inline-block",
@@ -38,6 +49,9 @@ const styleSheet = () => ({
   info: {
     padding: 0,
   },
+  quantity: {
+    padding: "0 0 0 32px",
+  },
 })
 
 class CartPage extends Component {
@@ -47,21 +61,24 @@ class CartPage extends Component {
     const { items } = cart
 
     const itemsList = items.map((item) => (
-      <ListItem button onClick={() => addItem(item)} key={item.id}>
+      <ListItem key={item.id} classes={{ root: classes.container }}>
+        <ListItemSecondaryAction classes={{ root: classes.action }}>
+          <IconButton onClick={() => removeItem(item)} color="primary" className={classes.button}>
+            <RemoveIcon />
+          </IconButton>
+          <IconButton onClick={() => addItem(item)} color="primary" className={classes.button}>
+            <AddIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+        <ListItemText
+          primary={item.quantity}
+          classes={{ root: classes.quantity }}
+        />
         <ListItemText
           primary={item.name}
           className={classes.product}
           classes={{ root: classes.info }}
         />
-        <ListItemText
-          primary={item.quantity}
-          classes={{ root: classes.info }}
-        />
-        <ListItemSecondaryAction className={classes.action} classes={{ root: classes.action }}>
-          <IconButton onClick={() => removeItem(item)} color="primary">
-            <RemoveIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
         <ListItemText
           primary={item.price.human}
           className={classes.price}
@@ -75,7 +92,7 @@ class CartPage extends Component {
         <List>
           {itemsList}
         </List>
-        <Button raised primary className={classes.button}>
+        <Button raised primary>
           Checkout
         </Button>
       </div>
