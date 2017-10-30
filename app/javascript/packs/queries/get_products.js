@@ -9,6 +9,10 @@ export default gql`
         human
         number
       }
+      image {
+        thumb
+        small
+      }
       sku
       description
     }
