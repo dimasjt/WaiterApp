@@ -1,11 +1,15 @@
 {
   "name": "WaiterApp",
   "private": true,
+  "scripts": {
+    "test": "jest app/javascript/packs --watch --notify"
+  },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
     "babel-preset-react": "^6.24.1",
     "coffeescript": "1.12.7",
     "history": "^4.7.2",
+    "immutable": "^4.0.0-rc.9",
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-beta.18",
     "material-ui-icons": "^1.0.0-beta.17",
@@ -24,6 +28,8 @@
     "typeface-roboto": "^0.0.41"
   },
   "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "jest": "^21.2.1",
     "react-hot-loader": "^3.1.1",
     "webpack-dev-server": "^2.9.3"
   }

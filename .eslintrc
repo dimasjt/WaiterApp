@@ -16,7 +16,11 @@
     "__DEV__": false,
     "__TEST__": false,
     "__PROD__": false,
-    "__COVERAGE__": false
+    "__COVERAGE__": false,
+    "window": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
   },
   "rules": {
     "key-spacing": "off",
