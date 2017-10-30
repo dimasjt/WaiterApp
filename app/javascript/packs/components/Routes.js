@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom"
+import { Route, BrowserRouter as Router, Switch, Link } from "react-router-dom"
 import {
   AppBar,
   Toolbar,
@@ -9,6 +9,7 @@ import {
 import {
   Menu as MenuIcon,
   Add as AddIcon,
+  ShoppingCart as CartIcon,
 } from "material-ui-icons"
 
 import AppDrawer from "./AppDrawer"
@@ -16,6 +17,7 @@ import AppDrawer from "./AppDrawer"
 import HomePage from "../pages/HomePage"
 import ProductsPage from "../pages/ProductsPage"
 import AddProductPage from "../pages/AddProductPage"
+import CartPage from "../pages/CartPage"
 
 class Routes extends Component {
   state = {
@@ -43,6 +45,9 @@ class Routes extends Component {
               <IconButton>
                 <AddIcon />
               </IconButton>
+              <Link to="/cart" component={IconButton}>
+                <CartIcon />
+              </Link>
             </Toolbar>
           </AppBar>
 
@@ -55,6 +60,7 @@ class Routes extends Component {
             <Route path="/home" component={HomePage} />
             <Route exact path="/products" component={ProductsPage} />
             <Route path="/products/new" component={AddProductPage} />
+            <Route path="/cart" component={CartPage} />
           </Switch >
         </div>
       </Router>
