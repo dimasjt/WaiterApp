@@ -3,6 +3,7 @@ import {
   List,
   Avatar,
   IconButton,
+  Typography,
 } from "material-ui"
 import {
   ListItem,
@@ -16,12 +17,38 @@ import {
 import { graphql } from "react-apollo"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
+import { withStyles } from "material-ui/styles"
 import PropTypes from "prop-types"
 
 import { GET_PRODUCTS } from "../queries"
 import * as cartActions from "../actions/cart"
 
+const styleSheet = () => ({
+  removeContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+})
+
 class HomePage extends Component {
+  showRemoveButton(product) {
+    const { cart, classes } = this.props
+
+    const productIndex = cart.get("items").findIndex((item) => item.get("id") === product.id)
+    if (productIndex < 0) { return null }
+
+    const quantity = cart.getIn(["items", productIndex, "quantity"])
+
+    return (
+      <ListItemSecondaryAction className={classes.removeContainer}>
+        <Typography type="body1">{quantity}</Typography>
+        <IconButton onClick={() => this.props.cartActions.removeItem(product)} color="primary">
+          <RemoveIcon />
+        </IconButton>
+      </ListItemSecondaryAction>
+    )
+  }
+
   render() {
     const products = this.props.data.products || []
     const { addItem } = this.props.cartActions
@@ -35,11 +62,7 @@ class HomePage extends Component {
           primary={product.name}
           secondary={product.price.human}
         />
-        <ListItemSecondaryAction>
-          <IconButton>
-            <RemoveIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
+        {this.showRemoveButton(product)}
       </ListItem>
     ))
 
@@ -63,6 +86,7 @@ const mapDispatchToProps = (dispatch) => ({
   cartActions: bindActionCreators(cartActions, dispatch),
 })
 
-const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(HomePage)
+const ConnectStyle = withStyles(styleSheet)(HomePage)
+const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(ConnectStyle)
 
 export default graphql(GET_PRODUCTS)(ConnectRedux)

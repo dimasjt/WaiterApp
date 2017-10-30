@@ -1,3 +1,5 @@
+import { Map } from "immutable"
+
 import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
@@ -8,7 +10,7 @@ export function addItem(product) {
   return (dispatch) => {
     dispatch({
       type: ADD_ITEM_TO_CART,
-      product,
+      product: Map(product),
     })
   }
 }
@@ -17,7 +19,7 @@ export function removeItem(product) {
   return (dispatch) => {
     dispatch({
       type: REMOVE_ITEM_FROM_CART,
-      product,
+      product: Map(product),
     })
   }
 }
