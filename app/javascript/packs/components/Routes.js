@@ -42,9 +42,11 @@ class Routes extends Component {
               <Typography type="title">
                 Title
               </Typography>
-              <IconButton>
-                <AddIcon />
-              </IconButton>
+              <Link to="/products/new" component={IconButton}>
+                <IconButton>
+                  <AddIcon />
+                </IconButton>
+              </Link>
               <Link to="/cart" component={IconButton}>
                 <CartIcon />
               </Link>

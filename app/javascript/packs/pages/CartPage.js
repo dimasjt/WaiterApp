@@ -1,52 +1,72 @@
 import React, { Component } from "react"
 import {
   List,
-  Avatar,
   IconButton,
   Typography,
+  Button,
 } from "material-ui"
 import {
   ListItem,
-  ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction
 } from "material-ui/List"
 import {
   Remove as RemoveIcon,
 } from "material-ui-icons"
+import { withStyles } from "material-ui/styles"
 import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
 import PropTypes from "prop-types"
 
+import * as cartActions from "../actions/cart"
+
+const styleSheet = () => ({
+  action: {
+    position: "relative",
+  },
+  item: {
+    display: "inline-block",
+    width: "10%",
+  },
+  price: {
+    textAlign: "right",
+    flex: 3,
+  },
+  product: {
+    flex: 5,
+  },
+  info: {
+    padding: 0,
+  },
+})
+
 class CartPage extends Component {
-  showRemoveButton(product) {
-    const { cart, classes } = this.props
-
-    const productIndex = cart.get("items").findIndex((item) => item.get("id") === product.id)
-    if (productIndex < 0) { return null }
-
-    const quantity = cart.getIn(["items", productIndex, "quantity"])
-
-    return (
-      <ListItemSecondaryAction className={classes.removeContainer}>
-        <Typography type="body1">{quantity}</Typography>
-        <IconButton onClick={() => this.props.cartActions.removeItem(product)} color="primary">
-          <RemoveIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
-    )
-  }
   render() {
-    const { items } = this.props.cart
-    const itemsList = items.map((product) => (
-      <ListItem button onClick={() => addItem(product)} key={product.id}>
-        <ListItemAvatar>
-          <Avatar alt={product.name} src={product.image.thumb} />
-        </ListItemAvatar>
+    const { cart, classes } = this.props
+    const { addItem, removeItem } = this.props.cartActions
+    const { items } = cart
+
+    const itemsList = items.map((item) => (
+      <ListItem button onClick={() => addItem(item)} key={item.id}>
         <ListItemText
-          primary={product.name}
-          secondary={product.price.human}
+          primary={item.name}
+          className={classes.product}
+          classes={{ root: classes.info }}
         />
-        {/* {this.showRemoveButton(product)} */}
+        <ListItemText
+          primary={item.quantity}
+          classes={{ root: classes.info }}
+        />
+        <ListItemSecondaryAction className={classes.action} classes={{ root: classes.action }}>
+          <IconButton onClick={() => removeItem(item)} color="primary">
+            <RemoveIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+        <ListItemText
+          primary={item.price.human}
+          className={classes.price}
+          classes={{ root: classes.info }}
+        />
       </ListItem>
     ))
 
@@ -55,9 +75,18 @@ class CartPage extends Component {
         <List>
           {itemsList}
         </List>
+        <Button raised primary className={classes.button}>
+          Checkout
+        </Button>
       </div>
     )
   }
+}
+
+CartPage.propTypes = {
+  cart: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  cartActions: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -65,6 +94,11 @@ const mapStateToProps = (state) => ({
   cart: state.cart.toJS(),
 })
 
-const ConnectRedux = connect(mapStateToProps)(CartPage)
+const mapDispatchToProps = (dispatch) => ({
+  cartActions: bindActionCreators(cartActions, dispatch),
+})
+
+const ConnectStyle = withStyles(styleSheet)(CartPage)
+const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(ConnectStyle)
 
 export default ConnectRedux
