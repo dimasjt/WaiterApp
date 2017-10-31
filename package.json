@@ -2,7 +2,8 @@
   "name": "WaiterApp",
   "private": true,
   "scripts": {
-    "test": "jest app/javascript/packs --watch --notify"
+    "test": "jest app/javascript/packs",
+    "test:watch": "yarn test --watch --notify"
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
@@ -14,10 +15,10 @@
     "material-ui": "^1.0.0-beta.18",
     "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
+    "react": "15",
     "react-apollo": "1",
     "react-confirm": "^0.1.16",
-    "react-dom": "^16.0.0",
+    "react-dom": "15",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
@@ -29,8 +30,14 @@
   },
   "devDependencies": {
     "babel-jest": "^21.2.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.3",
     "jest": "^21.2.1",
     "react-hot-loader": "^3.1.1",
+    "react-test-renderer": "15",
     "webpack-dev-server": "^2.9.3"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./jest.setup.js"
   }
 }
