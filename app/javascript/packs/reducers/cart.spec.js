@@ -1,4 +1,4 @@
-import cart from "./cart"
+import cart, { countQuantity, countTotalPrice } from "./cart"
 import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
@@ -89,6 +89,30 @@ describe("reducers", () => {
         state = cart(state, addAction(product2))
 
         expect(cart(state, clearAction)).toEqual(initialState)
+      })
+    })
+
+    describe("helpers", () => {
+      const items = [
+        { id: 1, name: "Ayam", quantity: 3, price: { number: 1000 } },
+        { id: 2, name: "Bebek", quantity: 2, price: { number: 1000 } },
+        { id: 3, name: "Sapi", quantity: 2, price: { number: 5000 } },
+        { id: 4, name: "Kambing", quantity: 1, price: { number: 2000 } },
+      ]
+
+      describe("countQuantity()", () => {
+        it("should count all quantity in items", () => {
+          expect(countQuantity(items)).toEqual(8)
+        })
+      })
+
+      describe("countTotalPrice()", () => {
+        it("should return total price", () => {
+          expect(countTotalPrice(items)).toEqual({
+            number: 17000,
+            human: "Rp17.000",
+          })
+        })
       })
     })
   })

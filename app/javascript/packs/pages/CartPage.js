@@ -12,7 +12,6 @@ import {
 } from "material-ui/List"
 import {
   Remove as RemoveIcon,
-  Add as AddIcon,
 } from "material-ui-icons"
 import { withStyles } from "material-ui/styles"
 import { connect } from "react-redux"
@@ -20,6 +19,7 @@ import { bindActionCreators } from "redux"
 import PropTypes from "prop-types"
 
 import * as cartActions from "../actions/cart"
+import { countQuantity, countTotalPrice } from "../reducers/cart"
 
 const styleSheet = (theme) => ({
   container: {
@@ -56,34 +56,34 @@ const styleSheet = (theme) => ({
 
 class CartPage extends Component {
   render() {
-    const { cart, classes } = this.props
+    const { cart, classes, quantity, totalPrice } = this.props
     const { addItem, removeItem } = this.props.cartActions
     const { items } = cart
 
     const itemsList = items.map((item) => (
-      <ListItem key={item.id} classes={{ root: classes.container }}>
-        <ListItemSecondaryAction classes={{ root: classes.action }}>
-          <IconButton onClick={() => removeItem(item)} color="primary" className={classes.button}>
-            <RemoveIcon />
-          </IconButton>
-          <IconButton onClick={() => addItem(item)} color="primary" className={classes.button}>
-            <AddIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-        <ListItemText
-          primary={item.quantity}
-          classes={{ root: classes.quantity }}
-        />
+      <ListItem
+        key={item.id}
+        classes={{ root: classes.container }}
+        onClick={() => addItem(item)}
+        button
+      >
         <ListItemText
           primary={item.name}
           className={classes.product}
           classes={{ root: classes.info }}
         />
         <ListItemText
+          primary={item.quantity}
+        />
+        <ListItemText
           primary={item.price.human}
           className={classes.price}
-          classes={{ root: classes.info }}
         />
+        <ListItemSecondaryAction>
+          <IconButton onClick={() => removeItem(item)} color="primary">
+            <RemoveIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
     ))
 
@@ -91,6 +91,11 @@ class CartPage extends Component {
       <div>
         <List>
           {itemsList}
+          <ListItem>
+            <ListItemText primary="Total Price" />
+            <ListItemText primary={`${quantity}`} />
+            <ListItemText primary={totalPrice.human} />
+          </ListItem>
         </List>
         <Button raised primary>
           Checkout
@@ -106,10 +111,17 @@ CartPage.propTypes = {
   cartActions: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = (state) => ({
-  ...state,
-  cart: state.cart.toJS(),
-})
+const mapStateToProps = (state) => {
+  const cart = state.cart.toJS()
+  const items = cart.items
+
+  return {
+    ...state,
+    cart: cart,
+    totalPrice: countTotalPrice(items),
+    quantity: countQuantity(items),
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   cartActions: bindActionCreators(cartActions, dispatch),

@@ -1,5 +1,7 @@
 import { fromJS } from "immutable"
 
+import money from "../util/money"
+
 import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
@@ -52,4 +54,20 @@ function cart(state = initialState, action) {
   }
 }
 
-export default cart
+function countTotalPrice(items) {
+  const total = items.reduce((n, item) => n + (item.price.number * item.quantity), 0)
+  return {
+    human: money(total),
+    number: total,
+  }
+}
+
+function countQuantity(items) {
+  return items.reduce((n, item) => n + item.quantity, 0)
+}
+
+export {
+  countQuantity,
+  countTotalPrice,
+  cart as default,
+}
