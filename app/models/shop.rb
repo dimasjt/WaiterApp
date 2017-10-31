@@ -24,6 +24,7 @@ class Shop < ApplicationRecord
   has_many :categories
   has_many :products
   has_many :users
+  has_many :carts
 
   validates :name, :city, presence: true
 end

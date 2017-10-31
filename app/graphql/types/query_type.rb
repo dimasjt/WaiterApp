@@ -22,4 +22,19 @@ Types::QueryType = GraphQL::ObjectType.define do
       Category.all
     }
   end
+
+  field :carts do
+    type types[Types::CartType]
+    resolve -> (obj, args, ctx) {
+      ctx[:current_shop].carts
+    }
+  end
+
+  field :cart do
+    type Types::CartType
+    argument :id, types.ID
+    resolve -> (obj, args, ctx) {
+      ctx[:current_shop].carts.find(args[:id])
+    }
+  end
 end

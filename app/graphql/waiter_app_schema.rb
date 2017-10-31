@@ -5,4 +5,8 @@ WaiterAppSchema = GraphQL::Schema.define do
   rescue_from ActiveRecord::RecordInvalid do |e|
     e.message
   end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    "Record not found"
+  end
 end
