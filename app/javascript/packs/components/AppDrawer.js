@@ -6,6 +6,7 @@ import {
   List as ListIcon,
   Settings as SettingsIcon,
   ExitToApp as ExitIcon,
+  ShoppingCart as CartIcon,
 } from "material-ui-icons"
 import PropTypes from "prop-types"
 
@@ -19,6 +20,7 @@ const AppDrawer = ({ open, toggleDrawer }) => (
     <List>
       <DrawerItem label="Dashboard" icon={DashboardIcon} to="/home" />
       <DrawerItem label="Orders" icon={OrdersIcon} to="/orders" />
+      <DrawerItem label="Carts" icon={CartIcon} to="/carts" />
       <DrawerItem label="Products" icon={ListIcon} to="/products" />
       <DrawerItem label="Settings" icon={SettingsIcon} to="/settings" />
       <Divider />

@@ -19,6 +19,8 @@ import HomePage from "../pages/HomePage"
 import ProductsPage from "../pages/ProductsPage"
 import AddProductPage from "../pages/AddProductPage"
 import CartPage from "../pages/CartPage"
+import CartsPage from "../pages/CartsPage"
+import DetailCartPage from "../pages/DetailCartPage"
 
 class Routes extends Component {
   state = {
@@ -64,6 +66,8 @@ class Routes extends Component {
             <Route exact path="/products" component={ProductsPage} />
             <Route path="/products/new" component={AddProductPage} />
             <Route path="/cart" component={CartPage} />
+            <Route path="/carts" component={CartsPage} exact />
+            <Route path="/carts/:id" component={DetailCartPage} />
           </Switch >
 
           <Flash />

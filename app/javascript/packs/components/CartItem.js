@@ -12,7 +12,7 @@ import {
 } from "material-ui-icons"
 import PropTypes from "prop-types"
 
-const CartItem = ({ item, addItem, removeItem }) => {
+const CartItem = ({ item, addItem, removeItem, newCart }) => {
   return (
     <ListItem
       key={item.id}
@@ -28,19 +28,20 @@ const CartItem = ({ item, addItem, removeItem }) => {
       <ListItemText
         primary={item.price.human}
       />
-      <ListItemSecondaryAction>
+      {newCart && <ListItemSecondaryAction>
         <IconButton onClick={() => removeItem(item)} color="primary">
           <RemoveIcon />
         </IconButton>
-      </ListItemSecondaryAction>
+      </ListItemSecondaryAction>}
     </ListItem>
   )
 }
 
 CartItem.propTypes = {
   item: PropTypes.object.isRequired,
-  addItem: PropTypes.func.isRequired,
-  removeItem: PropTypes.func.isRequired,
+  addItem: PropTypes.func,
+  removeItem: PropTypes.func,
+  newCart: PropTypes.bool.isRequired,
 }
 
 export default CartItem
