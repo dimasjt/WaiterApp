@@ -13,6 +13,7 @@ import {
 } from "material-ui-icons"
 
 import AppDrawer from "./AppDrawer"
+import Flash from "./Flash"
 
 import HomePage from "../pages/HomePage"
 import ProductsPage from "../pages/ProductsPage"
@@ -64,6 +65,8 @@ class Routes extends Component {
             <Route path="/products/new" component={AddProductPage} />
             <Route path="/cart" component={CartPage} />
           </Switch >
+
+          <Flash />
         </div>
       </Router>
     )
