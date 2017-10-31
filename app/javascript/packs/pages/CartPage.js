@@ -9,14 +9,27 @@ import {
 } from "material-ui/List"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
+import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
 
 import * as cartActions from "../actions/cart"
 import { countQuantity, countTotalPrice } from "../reducers/cart"
+import { CREATE_CART } from "../mutations"
 
 import CartItem from "../components/CartItem"
 
 class CartPage extends Component {
+  createCart(cart) {
+    const cartParams = {
+      items: cart.items.map((item) => ({ product_id: item.id, quantity: item.quantity }))
+    }
+    this.props.mutate({ variables: { cart: cartParams } })
+      .then((result) => {
+        this.props.cartActions.clearItems()
+      }).catch((error) => {
+        console.log("error", error)
+      })
+  }
   render() {
     const { cart, quantity, totalPrice } = this.props
     const { clearItems } = this.props.cartActions
@@ -40,7 +53,7 @@ class CartPage extends Component {
             <ListItemText primary={totalPrice.human} />
           </ListItem>
         </List>
-        <Button raised primary>
+        <Button raised primary onClick={() => this.createCart(cart)}>
           Serve
         </Button>
         <Button raised primary onClick={clearItems}>
@@ -56,6 +69,7 @@ CartPage.propTypes = {
   cartActions: PropTypes.object.isRequired,
   quantity: PropTypes.number.isRequired,
   totalPrice: PropTypes.object.isRequired,
+  mutate: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
@@ -70,10 +84,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   cartActions: bindActionCreators(cartActions, dispatch),
 })
 
-const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(CartPage)
+const ConnectGraphQL = graphql(CREATE_CART)(CartPage)
+const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(ConnectGraphQL)
 
 export default ConnectRedux

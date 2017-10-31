@@ -3,7 +3,7 @@ class Mutations::CreateCart < GraphQL::Function
     name "ItemCart"
 
     argument :product_id, !types.String
-    argument :quantity, !types.String
+    argument :quantity, !types.Int
   end
 
   CartInput = GraphQL::InputObjectType.define do
