@@ -4,7 +4,7 @@ import { TextField as Text } from "redux-form-material-ui"
 import _ from "lodash"
 import PropTypes from "prop-types"
 
-const TextField = ({ name, placeholder, label, multiline }) => {
+const TextField = ({ name, placeholder, label, multiline, validate }) => {
   const placeholderText = placeholder || _.capitalize(name)
   const labelText = label || _.capitalize(name)
 
@@ -18,6 +18,7 @@ const TextField = ({ name, placeholder, label, multiline }) => {
       multiline={multiline}
       rows={4}
       margin="normal"
+      validate={validate}
     />
   )
 }
@@ -27,6 +28,7 @@ TextField.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   multiline: PropTypes.bool,
+  validate: PropTypes.any,
 }
 
 TextField.defaultProps = {

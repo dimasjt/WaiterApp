@@ -30,6 +30,7 @@ const Flash = ({ open, message, close }) => {
       open={open}
       message={messageSpan}
       action={[action]}
+      autoHideDuration={5000}
     />
   )
 }

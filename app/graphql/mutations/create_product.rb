@@ -6,7 +6,7 @@ class Mutations::CreateProduct < GraphQL::Function
 
     argument :name, !types.String
     argument :price, !types.String
-    argument :category_id, !types.String
+    argument :category_id, types.String
     argument :description, types.String
     argument :sku, types.String
   end
