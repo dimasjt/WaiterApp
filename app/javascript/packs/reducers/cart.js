@@ -46,9 +46,7 @@ function cart(state = initialState, action) {
         return state.deleteIn(["items", productIndex])
       }
     case CLEAR_ITEMS_FROM_CART:
-      return {
-        ...initialState,
-      }
+      return initialState
     default:
       return state
   }
