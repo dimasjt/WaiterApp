@@ -33,8 +33,10 @@ describe("reducers", () => {
     })
 
     describe("add item or add quantity", () => {
-      it("should have quantity", () => {
+      it("should have quantity and product", () => {
         const state = cart(initialState, addAction(product1))
+
+        expect(state.get("items").first().get("product")).toEqual(product1)
         expect(state.get("items").first().get("quantity")).toBe(1)
       })
 
@@ -94,10 +96,10 @@ describe("reducers", () => {
 
     describe("helpers", () => {
       const items = [
-        { id: 1, name: "Ayam", quantity: 3, price: { number: 1000 } },
-        { id: 2, name: "Bebek", quantity: 2, price: { number: 1000 } },
-        { id: 3, name: "Sapi", quantity: 2, price: { number: 5000 } },
-        { id: 4, name: "Kambing", quantity: 1, price: { number: 2000 } },
+        { id: 1, name: "Ayam", quantity: 3, product: { id: 1, price: { number: 1000 } } },
+        { id: 2, name: "Bebek", quantity: 2, product: { id: 2, price: { number: 1000 } } },
+        { id: 3, name: "Sapi", quantity: 2, product: { id: 3, price: { number: 5000 } } },
+        { id: 4, name: "Kambing", quantity: 1, product: { id: 4, price: { number: 2000 } } },
       ]
 
       describe("countQuantity()", () => {

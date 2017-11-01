@@ -34,7 +34,7 @@ class HomePage extends Component {
   showRemoveButton(product) {
     const { cart, classes } = this.props
 
-    const productIndex = cart.get("items").findIndex((item) => item.get("id") === product.id)
+    const productIndex = cart.get("items").findIndex((item) => item.getIn(["product", "id"]) === product.id)
     if (productIndex < 0) { return null }
 
     const quantity = cart.getIn(["items", productIndex, "quantity"])

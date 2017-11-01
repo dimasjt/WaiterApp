@@ -7,18 +7,21 @@ import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
 import { countQuantity, countTotalPrice } from "../reducers/cart"
+import { addItem, removeItem } from "../actions/cart"
 
 import CartItem from "./CartItem"
 
 class Cart extends Component {
   render() {
-    const { quantity, totalPrice, cart, newCart } = this.props
+    const { quantity, totalPrice, cart, newCart, items, addItem, removeItem } = this.props
 
-    const itemsList = cart.items.map((item) => (
+    const itemsList = items.map((item) => (
       <CartItem
-        key={item.id}
+        key={item.id || item.product.id}
         item={item}
         newCart={newCart}
+        addItem={addItem}
+        removeItem={removeItem}
       />
     ))
 
@@ -48,12 +51,20 @@ Cart.defaultProps = {
   },
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { newCart, cart }) => {
+  const items = cart.items || []
+
   return {
     ...state,
-    quantity: countQuantity(state),
-    totalPrice: countTotalPrice(state)
+    items: items,
+    quantity: countQuantity(items),
+    totalPrice: countTotalPrice(items)
   }
 }
 
-export default connect(mapStateToProps)(Cart)
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (product) => dispatch(addItem(product)),
+  removeItem: (product) => dispatch(removeItem(product)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

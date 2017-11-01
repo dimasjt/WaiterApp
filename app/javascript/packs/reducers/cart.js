@@ -1,4 +1,4 @@
-import { fromJS } from "immutable"
+import { fromJS, Map } from "immutable"
 
 import money from "../util/money"
 
@@ -12,12 +12,16 @@ const initialState = fromJS({
   items: [],
 })
 
+const findProductByID = (action) => (
+  (p) => p.getIn(["product", "id"]) === action.product.get("id")
+)
+
 const findIndexProduct = (state, action) => {
-  return state.get("items").findIndex((p) => p.get("id") === action.product.get("id"))
+  return state.get("items").findIndex(findProductByID(action))
 }
 
 const findProduct = (state, action) => {
-  return state.get("items").find((p) => p.get("id") === action.product.get("id"))
+  return state.get("items").find(findProductByID(action))
 }
 
 function cart(state = initialState, action) {
@@ -29,7 +33,7 @@ function cart(state = initialState, action) {
       if (productIndex >= 0) {
         return state.updateIn(["items", productIndex], (item) => item.set("quantity", item.get("quantity") + 1))
       } else {
-        const product = action.product.set("quantity", 1)
+        const product = Map({ quantity: 1, product: action.product })
         return state.updateIn(["items"], (list) => list.push(product))
       }
     case REMOVE_ITEM_FROM_CART:
@@ -53,7 +57,7 @@ function cart(state = initialState, action) {
 }
 
 function countTotalPrice(items) {
-  const total = items.reduce((n, item) => n + (item.price.number * item.quantity), 0)
+  const total = items.reduce((n, item) => n + (item.product.price.number * item.quantity), 0)
   return {
     human: money(total),
     number: total,

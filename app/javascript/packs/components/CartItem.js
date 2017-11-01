@@ -13,23 +13,28 @@ import {
 import PropTypes from "prop-types"
 
 const CartItem = ({ item, addItem, removeItem, newCart }) => {
+  const addItemToCart = () => {
+    if (!newCart) { return }
+    addItem(item.product)
+  }
+
   return (
     <ListItem
       key={item.id}
-      onClick={() => addItem(item)}
-      button
+      onClick={addItemToCart}
+      button={newCart}
     >
       <ListItemText
-        primary={item.name}
+        primary={item.product.name}
       />
       <ListItemText
         primary={item.quantity}
       />
       <ListItemText
-        primary={item.price.human}
+        primary={item.product.price.human}
       />
       {newCart && <ListItemSecondaryAction>
-        <IconButton onClick={() => removeItem(item)} color="primary">
+        <IconButton onClick={() => removeItem(item.product)} color="primary">
           <RemoveIcon />
         </IconButton>
       </ListItemSecondaryAction>}
@@ -38,7 +43,18 @@ const CartItem = ({ item, addItem, removeItem, newCart }) => {
 }
 
 CartItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    quantity: PropTypes.number.isRequired,
+    product: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.shape({
+        number: PropTypes.number.isRequired,
+        human: PropTypes.string.isRequired,
+      }).isRequired,
+    }),
+  }).isRequired,
   addItem: PropTypes.func,
   removeItem: PropTypes.func,
   newCart: PropTypes.bool.isRequired,

@@ -12,11 +12,11 @@ import { bindActionCreators } from "redux"
 import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
 
-import * as cartActions from "../actions/cart"
+import { clearItems } from "../actions/cart"
 import { countQuantity, countTotalPrice } from "../reducers/cart"
 import { CREATE_CART } from "../mutations"
 
-import CartItem from "../components/CartItem"
+import Cart from "../components/Cart"
 
 class CartPage extends Component {
   createCart(cart) {
@@ -31,28 +31,14 @@ class CartPage extends Component {
       })
   }
   render() {
-    const { cart, quantity, totalPrice } = this.props
-    const { clearItems } = this.props.cartActions
-    const { items } = cart
-
-    const itemsList = items.map((item) => (
-      <CartItem
-        key={item.id}
-        item={item}
-        {...this.props.cartActions}
-      />
-    ))
+    const { cart, cleaItems } = this.props
 
     return (
       <div>
-        <List>
-          {itemsList}
-          <ListItem>
-            <ListItemText primary="Total Price" />
-            <ListItemText primary={`${quantity}`} />
-            <ListItemText primary={totalPrice.human} />
-          </ListItem>
-        </List>
+        <Cart
+          cart={cart}
+          newCart
+        />
         <Button raised onClick={() => this.createCart(cart)}>
           Serve
         </Button>
@@ -66,26 +52,21 @@ class CartPage extends Component {
 
 CartPage.propTypes = {
   cart: PropTypes.object.isRequired,
-  cartActions: PropTypes.object.isRequired,
-  quantity: PropTypes.number.isRequired,
-  totalPrice: PropTypes.object.isRequired,
+  clearItems: PropTypes.func.isRequired,
   mutate: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
   const cart = state.cart.toJS()
-  const items = cart.items
 
   return {
     ...state,
     cart: cart,
-    totalPrice: countTotalPrice(items),
-    quantity: countQuantity(items),
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  cartActions: bindActionCreators(cartActions, dispatch),
+  clearItems: () => dispatch(clearItems()),
 })
 
 const ConnectGraphQL = graphql(CREATE_CART)(CartPage)
