@@ -1,11 +1,11 @@
+import { fromJS, Map, List } from "immutable"
+
 import cart, { countQuantity, countTotalPrice } from "./cart"
 import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
   CLEAR_ITEMS_FROM_CART,
 } from "../util/constants"
-
-import { fromJS, Map, List } from "immutable"
 
 describe("reducers", () => {
   describe("cart", () => {
