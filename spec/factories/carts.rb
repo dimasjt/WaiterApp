@@ -8,6 +8,7 @@
 #  total_price :decimal(, )      default(0.0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  status      :integer
 #
 # Indexes
 #

@@ -13,6 +13,8 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  cart_id        :integer
+#  total_pay      :decimal(, )      default(0.0)
+#  return_cash    :decimal(, )      default(0.0)
 #
 # Indexes
 #

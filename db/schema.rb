@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101055356) do
+ActiveRecord::Schema.define(version: 20171101065419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20171101055356) do
     t.decimal "total_price", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
     t.index ["order_id"], name: "index_carts_on_order_id"
     t.index ["shop_id"], name: "index_carts_on_shop_id"
   end
@@ -54,6 +55,8 @@ ActiveRecord::Schema.define(version: 20171101055356) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cart_id"
+    t.decimal "total_pay", default: "0.0"
+    t.decimal "return_cash", default: "0.0"
     t.index ["cart_id"], name: "index_orders_on_cart_id"
     t.index ["number"], name: "index_orders_on_number", unique: true
     t.index ["shop_id"], name: "index_orders_on_shop_id"

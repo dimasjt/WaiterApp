@@ -8,6 +8,7 @@
 #  total_price :decimal(, )      default(0.0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  status      :integer
 #
 # Indexes
 #
@@ -21,9 +22,13 @@
 #
 
 class Cart < ApplicationRecord
+  STATUSES = %w[queue served paid cancelled]
+
   belongs_to :shop
   belongs_to :order, required: false
   has_many :items
 
   accepts_nested_attributes_for :items
+
+  enum status: STATUSES
 end
