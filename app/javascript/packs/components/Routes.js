@@ -22,6 +22,7 @@ import AddProductPage from "../pages/AddProductPage"
 import CartPage from "../pages/CartPage"
 import CartsPage from "../pages/CartsPage"
 import DetailCartPage from "../pages/DetailCartPage"
+import CheckoutPage from "../pages/CheckoutPage"
 
 class Routes extends Component {
   state = {
@@ -71,6 +72,7 @@ class Routes extends Component {
             <Route path="/cart" component={CartPage} />
             <Route path="/carts" component={CartsPage} exact />
             <Route path="/carts/:id" component={DetailCartPage} />
+            <Route path="/checkout/:cart_id" component={CheckoutPage} />
           </Switch >
 
           <Flash />
