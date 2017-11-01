@@ -1,6 +1,11 @@
 import React from "react"
 import { Drawer, List, Divider } from "material-ui"
 import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "material-ui/List"
+import {
   Dashboard as DashboardIcon,
   ShoppingBasket as OrdersIcon,
   List as ListIcon,
@@ -8,14 +13,23 @@ import {
   ExitToApp as ExitIcon,
   ShoppingCart as CartIcon,
 } from "material-ui-icons"
+import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
-import DrawerItem from "./DrawerItem"
-
 const AppDrawer = ({ open, toggleDrawer }) => {
-  const Item = ({ ...props }) => (
-    <DrawerItem {...props} toggleDrawer={toggleDrawer} />
-  )
+  const Item = ({ icon, label, to }) => {
+    const Icon = icon
+
+    return (
+      <ListItem button component={Link} to={to} onClick={toggleDrawer}>
+        <ListItemIcon>
+          <Icon />
+        </ListItemIcon>
+        <ListItemText primary={label} />
+      </ListItem>
+    )
+  }
+
   return (
     <Drawer
       open={open}
