@@ -53,10 +53,10 @@ class CartPage extends Component {
             <ListItemText primary={totalPrice.human} />
           </ListItem>
         </List>
-        <Button raised primary onClick={() => this.createCart(cart)}>
+        <Button raised onClick={() => this.createCart(cart)}>
           Serve
         </Button>
-        <Button raised primary onClick={clearItems}>
+        <Button raised onClick={clearItems}>
           Clear
         </Button>
       </div>

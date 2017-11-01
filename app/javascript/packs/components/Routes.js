@@ -12,6 +12,7 @@ import {
   ShoppingCart as CartIcon,
 } from "material-ui-icons"
 
+
 import AppDrawer from "./AppDrawer"
 import Flash from "./Flash"
 
@@ -45,13 +46,15 @@ class Routes extends Component {
               <Typography type="title">
                 Title
               </Typography>
-              <Link to="/products/new" component={IconButton}>
+              <Link to="/products/new">
                 <IconButton>
                   <AddIcon />
                 </IconButton>
               </Link>
-              <Link to="/cart" component={IconButton}>
-                <CartIcon />
+              <Link to="/cart">
+                <IconButton>
+                  <CartIcon />
+                </IconButton>
               </Link>
             </Toolbar>
           </AppBar>
