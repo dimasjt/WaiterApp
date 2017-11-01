@@ -14,7 +14,7 @@ import Cart from "../components/Cart"
 
 class DetailCartPage extends Component {
   render() {
-    const { data } = this.props
+    const { data, history } = this.props
     const cart = data.cart || {}
 
     if (data.loading) {
@@ -27,7 +27,7 @@ class DetailCartPage extends Component {
           cart={cart}
           newCart={false}
         />
-        <Button raised>
+        <Button raised onClick={() => history.push(`/checkout/${cart.id}`)}>
           Pay
         </Button>
       </div>
@@ -36,6 +36,7 @@ class DetailCartPage extends Component {
 }
 
 DetailCartPage.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => state

@@ -7,10 +7,10 @@ import {
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
-const DrawerItem = ({ icon, label, to }) => {
+const DrawerItem = ({ icon, label, to, toggleDrawer }) => {
   const Icon = icon
   return (
-    <ListItem button component={Link} to={to}>
+    <ListItem button component={Link} to={to} onClick={toggleDrawer}>
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
