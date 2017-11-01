@@ -12,9 +12,11 @@
 #  shop_id        :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  cart_id        :integer
 #
 # Indexes
 #
+#  index_orders_on_cart_id  (cart_id)
 #  index_orders_on_number   (number) UNIQUE
 #  index_orders_on_shop_id  (shop_id)
 #
