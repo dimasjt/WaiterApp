@@ -11,7 +11,7 @@ import {
   Add as AddIcon,
   ShoppingCart as CartIcon,
 } from "material-ui-icons"
-
+import { withStyles } from "material-ui/styles"
 
 import AppDrawer from "./AppDrawer"
 import Flash from "./Flash"
@@ -23,6 +23,12 @@ import CartPage from "../pages/CartPage"
 import CartsPage from "../pages/CartsPage"
 import DetailCartPage from "../pages/DetailCartPage"
 import CheckoutPage from "../pages/CheckoutPage"
+
+const styleSheet = () => ({
+  container: {
+    padding: 10,
+  },
+})
 
 class Routes extends Component {
   state = {
@@ -36,6 +42,8 @@ class Routes extends Component {
   }
 
   render() {
+    const { classes } = this.props
+
     return (
       <Router basename="/app">
         <div>
@@ -65,15 +73,17 @@ class Routes extends Component {
             open={this.state.open}
           />
 
-          <Switch>
-            <Route path="/home" component={HomePage} />
-            <Route exact path="/products" component={ProductsPage} />
-            <Route path="/products/new" component={AddProductPage} />
-            <Route path="/cart" component={CartPage} />
-            <Route path="/carts" component={CartsPage} exact />
-            <Route path="/carts/:id" component={DetailCartPage} />
-            <Route path="/checkout/:cart_id" component={CheckoutPage} />
-          </Switch >
+          <div className={classes.container}>
+            <Switch>
+              <Route path="/home" component={HomePage} />
+              <Route exact path="/products" component={ProductsPage} />
+              <Route path="/products/new" component={AddProductPage} />
+              <Route path="/cart" component={CartPage} />
+              <Route path="/carts" component={CartsPage} exact />
+              <Route path="/carts/:id" component={DetailCartPage} />
+              <Route path="/checkout/:cart_id" component={CheckoutPage} />
+            </Switch >
+          </div>
 
           <Flash />
         </div>
@@ -82,4 +92,4 @@ class Routes extends Component {
   }
 }
 
-export default Routes
+export default withStyles(styleSheet)(Routes)
