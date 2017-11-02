@@ -2,7 +2,7 @@ class Mutations::CreateOrder < GraphQL::Function
   OrderInput = GraphQL::InputObjectType.define do
     name "OrderInput"
 
-    argument :cart_id, !types.ID,
+    argument :cart_id, !types.ID
     argument :pay_cash, !types.Int
     argument :customer_name, types.String
   end

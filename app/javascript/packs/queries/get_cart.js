@@ -1,7 +1,7 @@
 import { gql } from "react-apollo"
 
 export default gql`
-  query cart($id: ID) {
+  query cart($id: ID!) {
     cart(id: $id) {
       id
       total_price {

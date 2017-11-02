@@ -32,7 +32,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :cart do
     type Types::CartType
-    argument :id, types.ID
+    argument :id, !types.ID
     resolve -> (obj, args, ctx) {
       ctx[:current_shop].carts.find(args[:id])
     }
@@ -47,7 +47,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :order do
     type Types::OrderType
-    resolve :id, types.ID
+    argument :id, !types.ID
     resolve -> (obj, args, ctx) {
       ctx[:current_shop].orders.find(args[:id])
     }
