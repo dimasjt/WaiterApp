@@ -32,11 +32,17 @@ class Cart < ApplicationRecord
 
   enum status: STATUSES
 
-  before_save :count_total_price
+  before_create :count_total_price, :set_status_served
 
   def count_total_price
     self.total_price = items.inject(0) do |sum, item|
       sum + (item.product.price * item.quantity)
     end
+  end
+
+  private
+
+  def set_status_served
+    self.status = :served
   end
 end
