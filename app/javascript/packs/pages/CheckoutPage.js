@@ -12,10 +12,12 @@ import Table, {
 } from "material-ui/Table"
 import { withStyles } from "material-ui/styles"
 import { graphql, compose } from "react-apollo"
+import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
 import money from "../util/money"
 
+import { showFlash } from "../actions/flash"
 import { GET_CART } from "../queries"
 import { CREATE_ORDER } from "../mutations"
 
@@ -37,19 +39,18 @@ class CheckoutPage extends Component {
   state = { totalPay: 0 }
 
   createOrder = () => {
+    const { mutate, dispatch } = this.props
     const order = {
       customer_name: "",
       total_pay: this.state.totalPay,
       cart_id: this.props.match.params.cart_id,
     }
 
-    console.log(order)
-
-    this.props.mutate({ variables: { order } })
+    mutate({ variables: { order } })
       .then((result) => {
-        console.log("success", result)
+        dispatch(showFlash("Success create order"))
       }).catch((error) => {
-        console.log("error", error)
+        dispatch(showFlash(error.message))
       })
   }
 
@@ -139,6 +140,11 @@ class CheckoutPage extends Component {
 
 CheckoutPage.propTypes = {
   classes: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  mutate: PropTypes.func.isRequired,
 }
 
 const ConnectStyle = withStyles(styleSheet)(CheckoutPage)
@@ -148,5 +154,6 @@ const ConnectGraphQL = compose(
   }),
   graphql(CREATE_ORDER),
 )(ConnectStyle)
+const ConnectRedux = connect(state => state)(ConnectGraphQL)
 
-export default ConnectGraphQL
+export default ConnectRedux
