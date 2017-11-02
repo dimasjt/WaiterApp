@@ -13,6 +13,8 @@ import { clearItems } from "../actions/cart"
 import { showFlash } from "../actions/flash"
 import { CREATE_CART } from "../mutations"
 
+import confirm from "../util/confirm"
+
 import Cart from "../components/Cart"
 
 const styleSheet = () => ({
@@ -71,7 +73,7 @@ class CartPage extends Component {
           <Grid item xs={6}>
             <Button
               raised
-              onClick={clearItems}
+              onClick={() => confirm("Are you sure?").then(clearItems, () => { })}
               className={classes.button}
               disabled={!cart.items.length}
             >
