@@ -12,6 +12,7 @@ import {
   ShoppingCart as CartIcon,
 } from "material-ui-icons"
 import { withStyles } from "material-ui/styles"
+import PropTypes from "prop-types"
 
 import AppDrawer from "./AppDrawer"
 import Flash from "./Flash"
@@ -23,6 +24,7 @@ import CartPage from "../pages/CartPage"
 import CartsPage from "../pages/CartsPage"
 import DetailCartPage from "../pages/DetailCartPage"
 import CheckoutPage from "../pages/CheckoutPage"
+import OrdersPage from "../pages/OrdersPage"
 
 const styleSheet = () => ({
   container: {
@@ -31,6 +33,10 @@ const styleSheet = () => ({
 })
 
 class Routes extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+  }
+
   state = {
     open: false,
   }
@@ -82,6 +88,7 @@ class Routes extends Component {
               <Route path="/carts" component={CartsPage} exact />
               <Route path="/carts/:id" component={DetailCartPage} />
               <Route path="/checkout/:cart_id" component={CheckoutPage} />
+              <Route path="/orders" component={OrdersPage} />
             </Switch >
           </div>
 
