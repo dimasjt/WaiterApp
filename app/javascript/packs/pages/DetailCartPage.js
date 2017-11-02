@@ -34,7 +34,7 @@ class DetailCartPage extends Component {
           newCart={false}
         />
         <Grid container>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Button
               raised
               onClick={() => history.push("/carts")}
@@ -43,7 +43,7 @@ class DetailCartPage extends Component {
               Back
             </Button>
           </Grid>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Button
               raised
               onClick={() => history.push(`/checkout/${cart.id}`)}

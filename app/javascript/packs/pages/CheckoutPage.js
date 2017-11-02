@@ -95,12 +95,12 @@ class CheckoutPage extends Component {
           </TableBody>
         </Table>
         <Grid container>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Button raised className={classes.button} onClick={history.goBack}>
               Back
             </Button>
           </Grid>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Button raised className={classes.button}>
               Pay
             </Button>
