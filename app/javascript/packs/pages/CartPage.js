@@ -1,19 +1,12 @@
 import React, { Component } from "react"
 import {
-  List,
   Button,
 } from "material-ui"
-import {
-  ListItem,
-  ListItemText,
-} from "material-ui/List"
 import { connect } from "react-redux"
-import { bindActionCreators } from "redux"
 import { graphql } from "react-apollo"
 import PropTypes from "prop-types"
 
 import { clearItems } from "../actions/cart"
-import { countQuantity, countTotalPrice } from "../reducers/cart"
 import { CREATE_CART } from "../mutations"
 
 import Cart from "../components/Cart"
@@ -21,17 +14,17 @@ import Cart from "../components/Cart"
 class CartPage extends Component {
   createCart(cart) {
     const cartParams = {
-      items: cart.items.map((item) => ({ product_id: item.id, quantity: item.quantity }))
+      items: cart.items.map((item) => ({ product_id: item.product.id, quantity: item.quantity })),
     }
     this.props.mutate({ variables: { cart: cartParams } })
       .then((result) => {
-        this.props.cartActions.clearItems()
+        this.props.clearItems()
       }).catch((error) => {
         console.log("error", error)
       })
   }
   render() {
-    const { cart, cleaItems } = this.props
+    const { cart, clearItems } = this.props
 
     return (
       <div>

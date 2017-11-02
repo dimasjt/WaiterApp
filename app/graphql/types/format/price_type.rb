@@ -1,9 +1,9 @@
 Types::Format::PriceType = GraphQL::ObjectType.define do
   name "Price"
 
-  field :number, types.Int do
+  field :number, types.Float do
     resolve ->(price, args, ctx) {
-      price.to_i
+      price
     }
   end
 

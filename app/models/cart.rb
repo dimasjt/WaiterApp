@@ -31,4 +31,12 @@ class Cart < ApplicationRecord
   accepts_nested_attributes_for :items
 
   enum status: STATUSES
+
+  before_save :count_total_price
+
+  def count_total_price
+    self.total_price = items.inject(0) do |sum, item|
+      sum + (item.product.price * item.quantity)
+    end
+  end
 end
