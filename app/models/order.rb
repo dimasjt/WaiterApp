@@ -29,5 +29,20 @@
 
 class Order < ApplicationRecord
   belongs_to :shop
-  has_one :cart
+  belongs_to :cart
+
+  validates :total_pay,
+    numericality: { greater_than_or_equal_to: Proc.new { |o| o.total_pay } },
+    presence: true
+
+  before_save :calculate
+
+  private
+
+  def calculate
+    self.total = cart.total_price
+    self.return_cash = total_pay - total
+
+    cart.update_attribute(:status, :paid)
+  end
 end

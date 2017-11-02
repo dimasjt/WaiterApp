@@ -3,7 +3,7 @@ class Mutations::CreateOrder < GraphQL::Function
     name "OrderInput"
 
     argument :cart_id, !types.ID
-    argument :pay_cash, !types.Int
+    argument :total_pay, !types.String
     argument :customer_name, types.String
   end
 
@@ -11,7 +11,7 @@ class Mutations::CreateOrder < GraphQL::Function
   type Types::OrderType
 
   def call(obj, args, ctx)
-    order = ctx[:current_shop].orders.create(args[:cart_id])
+    order = ctx[:current_shop].orders.create(args[:order].to_h)
     order
   end
 end

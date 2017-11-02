@@ -25,7 +25,7 @@ class Cart < ApplicationRecord
   STATUSES = %w[queue served paid cancelled]
 
   belongs_to :shop
-  belongs_to :order, required: false
+  has_one :order
   has_many :items
 
   accepts_nested_attributes_for :items

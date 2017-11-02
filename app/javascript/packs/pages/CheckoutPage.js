@@ -11,12 +11,13 @@ import Table, {
   TableRow,
 } from "material-ui/Table"
 import { withStyles } from "material-ui/styles"
-import { graphql } from "react-apollo"
+import { graphql, compose } from "react-apollo"
 import PropTypes from "prop-types"
 
 import money from "../util/money"
 
 import { GET_CART } from "../queries"
+import { CREATE_ORDER } from "../mutations"
 
 const styleSheet = (theme) => ({
   button: {
@@ -33,15 +34,31 @@ const styleSheet = (theme) => ({
 })
 
 class CheckoutPage extends Component {
-  state = { payCash: 0 }
+  state = { totalPay: 0 }
+
+  createOrder = () => {
+    const order = {
+      customer_name: "",
+      total_pay: this.state.totalPay,
+      cart_id: this.props.match.params.cart_id,
+    }
+
+    console.log(order)
+
+    this.props.mutate({ variables: { order } })
+      .then((result) => {
+        console.log("success", result)
+      }).catch((error) => {
+        console.log("error", error)
+      })
+  }
 
   calculateReturn(totalPrice) {
-    console.log(totalPrice)
-    if (this.state.payCash < totalPrice) {
+    if (this.state.totalPay < totalPrice) {
       return money(0)
     }
 
-    return money(this.state.payCash - totalPrice)
+    return money(this.state.totalPay - totalPrice)
   }
 
   render() {
@@ -76,7 +93,7 @@ class CheckoutPage extends Component {
                   inputClassName={classes.textField}
                   type="number"
                   autoFocus
-                  onChange={(event) => this.setState({ payCash: event.target.value })}
+                  onChange={(event) => this.setState({ totalPay: event.target.value })}
                 />
               </TableCell>
             </TableRow>
@@ -96,12 +113,21 @@ class CheckoutPage extends Component {
         </Table>
         <Grid container>
           <Grid item xs={6}>
-            <Button raised className={classes.button} onClick={history.goBack}>
+            <Button
+              raised
+              className={classes.button}
+              onClick={history.goBack}
+            >
               Back
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button raised className={classes.button}>
+            <Button
+              raised
+              className={classes.button}
+              onClick={this.createOrder}
+              disabled={this.state.totalPay < cart.total_price.number}
+            >
               Pay
             </Button>
           </Grid>
@@ -116,8 +142,11 @@ CheckoutPage.propTypes = {
 }
 
 const ConnectStyle = withStyles(styleSheet)(CheckoutPage)
-const ConnectGraphQL = graphql(GET_CART, {
-  options: ({ match }) => ({ variables: { id: match.params.cart_id } }),
-})(ConnectStyle)
+const ConnectGraphQL = compose(
+  graphql(GET_CART, {
+    options: ({ match }) => ({ variables: { id: match.params.cart_id } }),
+  }),
+  graphql(CREATE_ORDER),
+)(ConnectStyle)
 
 export default ConnectGraphQL
