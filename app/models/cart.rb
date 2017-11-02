@@ -2,13 +2,14 @@
 #
 # Table name: carts
 #
-#  id          :integer          not null, primary key
-#  shop_id     :integer
-#  order_id    :integer
-#  total_price :decimal(, )      default(0.0)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  status      :integer
+#  id           :integer          not null, primary key
+#  shop_id      :integer
+#  order_id     :integer
+#  total_price  :decimal(, )      default(0.0)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  status       :integer
+#  table_number :string
 #
 # Indexes
 #

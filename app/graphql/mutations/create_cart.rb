@@ -10,6 +10,7 @@ class Mutations::CreateCart < GraphQL::Function
     name "CreateCart"
 
     argument :items, types[ItemInput]
+    argument :table_number, types.String
   end
 
   argument :cart, !CartInput
