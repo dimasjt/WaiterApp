@@ -43,11 +43,12 @@ CartsPage.propTypes = {
 
 const mapStateToProps = (state) => state
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  // cartActions: bindActionCreators(cartActions, dispatch),
-})
-
-const ConnectGraphQL = graphql(GET_CARTS)(CartsPage)
+const ConnectGraphQL = graphql(GET_CARTS, {
+  options: () => ({
+    variables: { status: "served" },
+    fetchPolicy: "network-only",
+  }),
+})(CartsPage)
 const ConnectRedux = connect(mapStateToProps)(ConnectGraphQL)
 
 export default ConnectRedux

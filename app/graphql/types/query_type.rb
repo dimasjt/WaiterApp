@@ -25,8 +25,10 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :carts do
     type types[Types::CartType]
+    argument :status, !types.String
     resolve -> (obj, args, ctx) {
-      ctx[:current_shop].carts
+      status = Cart::STATUSES.include?(args[:status]) ? args[:status] : "all"
+      ctx[:current_shop].carts.send(status)
     }
   end
 
