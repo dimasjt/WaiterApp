@@ -3,6 +3,7 @@ import {
   Typography as Text,
   TextField,
   Button,
+  Grid,
 } from "material-ui"
 import Table, {
   TableBody,
@@ -25,6 +26,10 @@ const styleSheet = (theme) => ({
     fontSize: "18px",
     textAlign: "end",
   },
+  table: {
+    marginTop: 15,
+    marginBottom: 15,
+  },
 })
 
 class CheckoutPage extends Component {
@@ -40,7 +45,7 @@ class CheckoutPage extends Component {
   }
 
   render() {
-    const { classes, data } = this.props
+    const { classes, data, history } = this.props
     const cart = data.cart || {}
 
     if (!data.cart) {
@@ -49,7 +54,7 @@ class CheckoutPage extends Component {
 
     return (
       <div>
-        <Table>
+        <Table className={classes.table}>
           <TableBody>
             <TableRow>
               <TableCell>
@@ -89,11 +94,18 @@ class CheckoutPage extends Component {
             </TableRow>
           </TableBody>
         </Table>
-        <div>
-          <Button raised className={classes.button}>
-            Pay
-          </Button>
-        </div>
+        <Grid container>
+          <Grid xs={6}>
+            <Button raised className={classes.button} onClick={history.goBack}>
+              Back
+            </Button>
+          </Grid>
+          <Grid xs={6}>
+            <Button raised className={classes.button}>
+              Pay
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     )
   }
