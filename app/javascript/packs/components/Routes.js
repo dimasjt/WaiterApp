@@ -30,6 +30,9 @@ const styleSheet = () => ({
   container: {
     padding: 10,
   },
+  title: {
+    flex: 1,
+  },
 })
 
 class Routes extends Component {
@@ -58,7 +61,7 @@ class Routes extends Component {
               <IconButton onClick={this.toggleDrawer}>
                 <MenuIcon />
               </IconButton>
-              <Typography type="title">
+              <Typography type="title" className={classes.title}>
                 Title
               </Typography>
               <Link to="/products/new">
