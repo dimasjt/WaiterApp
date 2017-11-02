@@ -9,7 +9,7 @@ Types::Format::PriceType = GraphQL::ObjectType.define do
 
   field :human, types.String do
     resolve ->(price, args, ctx) {
-      Money.new(price, :idr).format
+      Money.new(price * 100, :idr).format(no_cents: true)
     }
   end
 end
