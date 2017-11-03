@@ -1,3 +1,8 @@
 #root
 
 = javascript_pack_tag "application"
+
+javascript:
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("#{asset_path('serviceworker')}")
+  }
