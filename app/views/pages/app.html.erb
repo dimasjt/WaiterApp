@@ -4,7 +4,6 @@
 
 <script>
   if ('serviceWorker' in navigator) {
-    var swName = "<%= asset_path('serviceworker') %>"
-    navigator.serviceWorker.register(swName)
+    navigator.serviceWorker.register("<%= asset_path('serviceworker.js') %>")
   }
 </script>
