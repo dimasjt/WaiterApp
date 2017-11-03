@@ -22,5 +22,14 @@
 require 'rails_helper'
 
 RSpec.describe Shop, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:user) { create(:user) }
+  let(:shop_params) { attributes_for(:shop) }
+
+  describe "validations" do
+    it "should create shop" do
+      shop = Shop.new(shop_params.merge(user_id: user.id))
+      expect(shop.save).to be(true)
+      expect(shop.user).to eq(user)
+    end
+  end
 end

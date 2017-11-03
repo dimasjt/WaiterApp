@@ -19,9 +19,10 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :shop do
-    name "MyString"
-    city "MyString"
+    name { Faker::Company.name }
+    city { Faker::Address.city }
+    association :user, factory: :user
   end
 end

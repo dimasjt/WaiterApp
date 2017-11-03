@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102102058) do
+ActiveRecord::Schema.define(version: 20171103033822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20171102102058) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shop_id"], name: "index_categories_on_shop_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "file"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_images_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -123,6 +131,7 @@ ActiveRecord::Schema.define(version: 20171102102058) do
 
   add_foreign_key "carts", "orders"
   add_foreign_key "carts", "shops"
+  add_foreign_key "images", "users"
   add_foreign_key "items", "carts"
   add_foreign_key "items", "products"
   add_foreign_key "orders", "shops"

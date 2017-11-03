@@ -18,7 +18,7 @@ group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
   gem "pry-rails"
-  gem "factory_girl_rails"
+  gem "factory_bot_rails"
   gem "faker"
   gem "figaro"
 end
@@ -33,6 +33,7 @@ group :development do
   gem "graphiql-rails"
   gem "guard", require: false
   gem "guard-bundler", require: false
+  gem "guard-rspec", require: false
   gem "rubocop", require: false
 end
 

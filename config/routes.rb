@@ -17,10 +17,11 @@ Rails.application.routes.draw do
     resources :orders
   end
 
-  namespace :api, default: { format: :json } do
+  namespace :api, defaults: { format: :json } do
     post "login", to: "sessions#create", as: :login
 
-    post "/graphql", to: "graphql#execute"
+    post :graphql, to: "graphql#execute"
+    post :images, to: "images#create"
   end
 
   get "app", to: redirect("app/home")

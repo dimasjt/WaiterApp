@@ -27,7 +27,7 @@
 #  fk_rails_...  (shop_id => shops.id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :order do
     number "MyString"
     total "9.99"

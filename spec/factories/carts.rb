@@ -22,7 +22,7 @@
 #  fk_rails_...  (shop_id => shops.id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :cart do
     order nil
     items ""

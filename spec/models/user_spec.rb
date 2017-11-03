@@ -41,5 +41,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user_params) { attributes_for(:user)}
+
+  describe "validations" do
+    it "create user" do
+      user = User.new(user_params)
+      expect(user.save).to be(true)
+    end
+  end
 end

@@ -13,7 +13,7 @@
 #  index_categories_on_shop_id  (shop_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :category do
     name "MyString"
   end

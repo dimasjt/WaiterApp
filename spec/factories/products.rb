@@ -25,7 +25,7 @@
 #  fk_rails_...  (shop_id => shops.id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :product do
     name "MyString"
     price "MyString"

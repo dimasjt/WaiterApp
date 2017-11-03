@@ -38,8 +38,16 @@
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
-    
+    email { Faker::Internet.email }
+    password "letMein123!"
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    phone { Faker::PhoneNumber.cell_phone }
+
+    trait :with_shop do
+      shops { create_list(:shop, 1) }
+    end
   end
 end
