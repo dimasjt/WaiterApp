@@ -1,0 +1,10 @@
+<div id="root"></div>
+
+<%= javascript_pack_tag "application" %>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    var swName = "<%= asset_path('serviceworker') %>"
+    navigator.serviceWorker.register(swName)
+  }
+</script>

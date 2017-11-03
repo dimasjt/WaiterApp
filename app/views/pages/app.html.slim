@@ -1,9 +1,0 @@
-#root
-
-= javascript_pack_tag "application"
-
-javascript:
-  var swName = "#{asset_path('serviceworker')}"
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(swName)
-  }
