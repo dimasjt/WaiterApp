@@ -30,5 +30,6 @@
     }
   ],
   "orientation": "portrait",
-  "start_url": "https://waiterapp-staging.herokuapp.com/app/home"
+  "start_url": "https://waiterapp-staging.herokuapp.com/app/home",
+  "display": "standalone"
 }
