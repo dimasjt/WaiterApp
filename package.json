@@ -20,6 +20,7 @@
     "react-apollo": "1",
     "react-confirm": "^0.1.16",
     "react-dom": "15",
+    "react-dropzone": "^4.2.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
@@ -31,6 +32,8 @@
   },
   "devDependencies": {
     "babel-jest": "^21.2.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-15": "^1.0.3",
     "jest": "^21.2.1",

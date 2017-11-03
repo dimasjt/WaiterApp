@@ -27,6 +27,8 @@
     "react-hot-loader/babel",
     "syntax-dynamic-import",
     "transform-object-rest-spread",
+    "transform-async-to-generator",
+    "transform-runtime",
     [
       "transform-class-properties",
       {
