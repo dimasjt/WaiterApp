@@ -29,5 +29,6 @@
       "type": "image/png"
     }
   ],
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "start_url": "https://waiterapp-staging.herokuapp.com/app/home"
 }
