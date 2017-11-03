@@ -7,6 +7,10 @@ html lang="en"
     meta name="viewport" content="width=device-width, initial-scale=1"
     meta name="theme-color" content="#ffffff"
     link rel="manifest" href="/manifest.json"
+
+    javascript:
+      window.localStorage.setItem("token", "#{current_user.token}")
+
   body
     = yield
 
