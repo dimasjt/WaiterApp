@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
 } from "material-ui/List"
 import {
   Folder as FolderIcon,
@@ -50,9 +50,7 @@ class ProductsPage extends Component {
     const items = products.map((product) => (
       <ListItem button key={product.id}>
         <ListItemAvatar>
-          <Avatar>
-            <FolderIcon />
-          </Avatar>
+          <Avatar src={product.image.small} />
         </ListItemAvatar>
         <ListItemText
           primary={product.name}
@@ -81,7 +79,7 @@ class ProductsPage extends Component {
 ProductsPage.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool,
-    products: PropTypes.arrayOf(PropTypes.object)
+    products: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   deleteProduct: PropTypes.func.isRequired,
 }
@@ -96,7 +94,7 @@ export default compose(
             ownProps.data.refetch()
           })
         }, () => { })
-      }
-    })
+      },
+    }),
   }),
 )(ProductsPage)
