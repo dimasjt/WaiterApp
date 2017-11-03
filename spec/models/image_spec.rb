@@ -29,4 +29,21 @@ RSpec.describe Image, type: :model do
       expect(image.save).to be(true)
     end
   end
+
+  describe "#as_json" do
+    let!(:image) { create(:image) }
+
+    it "should have urls for different versions" do
+      expect(image.as_json).to eq({
+        id: image.id,
+        file: {
+          original: image.file_url,
+          thumb: image.file_url(:thumb),
+          small: image.file_url(:small),
+          medium: image.file_url(:medium),
+          large: image.file_url(:large)
+        }
+      })
+    end
+  end
 end

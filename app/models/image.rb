@@ -23,4 +23,17 @@ class Image < ApplicationRecord
   belongs_to :user
 
   validates :file, presence: true
+
+  def as_json(options = {})
+    {
+      id: id,
+      file: {
+        original: file.url,
+        thumb: file_url(:thumb),
+        small: file_url(:small),
+        medium: file_url(:medium),
+        large: file_url(:large)
+      }
+    }
+  end
 end

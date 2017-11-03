@@ -3,7 +3,7 @@ class Api::ImagesController < Api::BaseController
     @image = current_user.images.new(image_params)
 
     if @image.save
-      render json: { image: { id: @image.id } }, status: 200
+      render json: { image: @image.as_json }, status: 200
     else
       render json: { errors: @image.errors.full_messages }, status: 402
     end
