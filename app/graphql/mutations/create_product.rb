@@ -12,9 +12,16 @@ class Mutations::CreateProduct < GraphQL::Function
   end
 
   argument :product, !ProductInput
+  argument :image_id, types.ID
   type Types::ProductType
 
   def call(obj, args, ctx)
-    ctx[:current_shop].products.create(args[:product].to_h)
+    product = ctx[:current_shop].products.new(args[:product].to_h)
+
+    if image = ctx[:current_user].images.find_by(id: args[:image_id])
+      product.image = image.file
+    end
+    product.save
+    product
   end
 end

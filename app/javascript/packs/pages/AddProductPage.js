@@ -29,7 +29,7 @@ class AddProductPage extends Component {
     const { resetForm, showFlash, mutate } = this.props
 
     try {
-      await mutate({ variables: { product } })
+      await mutate({ variables: { product, image_id: this.state.imageId } })
       resetForm()
       showFlash("Success create product")
     } catch (error) {
