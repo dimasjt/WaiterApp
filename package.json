@@ -1,5 +1,5 @@
 {
-  "name": "WaiterApp",
+  "name": "waiter-app",
   "private": true,
   "scripts": {
     "test": "jest app/javascript/packs",
