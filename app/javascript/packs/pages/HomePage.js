@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
 } from "material-ui/List"
 import {
   Remove as RemoveIcon,
@@ -79,6 +79,8 @@ class HomePage extends Component {
 HomePage.propTypes = {
   data: PropTypes.object.isRequired,
   cartActions: PropTypes.object.isRequired,
+  cart: PropTypes.object,
+  classes: PropTypes.object,
 }
 
 const mapStateToProps = (state) => state
