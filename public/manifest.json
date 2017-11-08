@@ -2,6 +2,7 @@
   "name": "WaiterApp",
   "short_name": "WaiterApp",
   "background_color": "#000",
+  "theme_color": "#000",
   "icons": [
     {
       "src": "/touch/icon-128x128.png",
@@ -30,6 +31,6 @@
     }
   ],
   "orientation": "portrait",
-  "start_url": "https://waiterapp-staging.herokuapp.com/app/home",
+  "start_url": "/app",
   "display": "standalone"
 }
