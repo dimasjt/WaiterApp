@@ -2,11 +2,7 @@
   "use strict"
 
   var PREFIX = "waiterapp-staging"
-  // var FILES = [
-  //   "/packs/application-5e4eb3c3656f78db01ba.js",
-  // ]
   var FILES = [
-    "<%= JSON.parse(File.read('public/packs/manifest.json'))['application.js'] %>",
   ]
 
   self.addEventListener("install", function(event) {
