@@ -30,7 +30,7 @@ describe("reducers", () => {
 
     it("should hide", () => {
       const action = {
-        type: HIDE_FLASH
+        type: HIDE_FLASH,
       }
       const state = flash(initialState, { type: SHOW_FLASH, message: "Hi" })
 

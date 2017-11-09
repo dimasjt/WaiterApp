@@ -5,10 +5,10 @@ import {
   ListItemSecondaryAction,
 } from "material-ui/List"
 import {
-  IconButton
+  IconButton,
 } from "material-ui"
 import {
-  Remove as RemoveIcon
+  Remove as RemoveIcon,
 } from "material-ui-icons"
 import PropTypes from "prop-types"
 

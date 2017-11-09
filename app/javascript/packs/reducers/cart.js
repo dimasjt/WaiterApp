@@ -12,17 +12,14 @@ const initialState = fromJS({
   items: [],
 })
 
-const findProductByID = (action) => (
+const findProductByID = (action) =>
   (p) => p.getIn(["product", "id"]) === action.product.get("id")
-)
 
-const findIndexProduct = (state, action) => {
-  return state.get("items").findIndex(findProductByID(action))
-}
+const findIndexProduct = (state, action) =>
+  state.get("items").findIndex(findProductByID(action))
 
-const findProduct = (state, action) => {
-  return state.get("items").find(findProductByID(action))
-}
+const findProduct = (state, action) =>
+  state.get("items").find(findProductByID(action))
 
 function cart(state = initialState, action) {
   let productIndex

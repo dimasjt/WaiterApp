@@ -3,7 +3,6 @@ import {
   List,
   Avatar,
   IconButton,
-  Button,
 } from "material-ui"
 import {
   ListItem,
@@ -12,7 +11,6 @@ import {
   ListItemSecondaryAction,
 } from "material-ui/List"
 import {
-  Folder as FolderIcon,
   Delete as DeleteIcon,
   ModeEdit as EditIcon,
 } from "material-ui-icons"

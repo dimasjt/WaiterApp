@@ -40,7 +40,7 @@ Confirmation.propTypes = {
 }
 
 Confirmation.defaultProps = {
-  confirmation: "Are you sure?"
+  confirmation: "Are you sure?",
 }
 
 export default confirmable(Confirmation)

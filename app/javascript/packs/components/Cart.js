@@ -13,7 +13,7 @@ import CartItem from "./CartItem"
 
 class Cart extends Component {
   render() {
-    const { quantity, totalPrice, cart, newCart, items, addItem, removeItem } = this.props
+    const { quantity, totalPrice, newCart, items, addItem, removeItem } = this.props
 
     const itemsList = items.map((item) => (
       <CartItem
@@ -40,9 +40,11 @@ class Cart extends Component {
 
 Cart.propTypes = {
   newCart: PropTypes.bool.isRequired,
-  cart: PropTypes.shape({
-    items: PropTypes.array
-  }),
+  quantity: PropTypes.number,
+  totalPrice: PropTypes.object,
+  items: PropTypes.array,
+  addItem: PropTypes.func,
+  removeItem: PropTypes.func,
 }
 
 Cart.defaultProps = {
@@ -58,7 +60,7 @@ const mapStateToProps = (state, { newCart, cart }) => {
     ...state,
     items: items,
     quantity: countQuantity(items),
-    totalPrice: countTotalPrice(items)
+    totalPrice: countTotalPrice(items),
   }
 }
 

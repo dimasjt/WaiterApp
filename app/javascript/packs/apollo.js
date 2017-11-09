@@ -13,7 +13,7 @@ networkInterface.use([{
     const token = window.localStorage.getItem("token")
     req.options.headers.authorization = token ? `Bearer ${token}` : null
     next()
-  }
+  },
 }])
 
 export const apolloClient = new ApolloClient({ networkInterface })
