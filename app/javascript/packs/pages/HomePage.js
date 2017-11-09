@@ -11,8 +11,11 @@ import {
   ListItemText,
   ListItemSecondaryAction,
 } from "material-ui/List"
+import Input, { InputLabel, InputAdornment } from "material-ui/Input"
+import { FormControl } from "material-ui/Form"
 import {
   Remove as RemoveIcon,
+  Clear as ClearIcon,
 } from "material-ui-icons"
 import { graphql } from "react-apollo"
 import { connect } from "react-redux"
@@ -31,6 +34,8 @@ const styleSheet = () => ({
 })
 
 class HomePage extends Component {
+  state = { query: "" }
+
   showRemoveButton(product) {
     const { cart, classes } = this.props
 
@@ -49,11 +54,18 @@ class HomePage extends Component {
     )
   }
 
+  filteredProducts() {
+    let products = this.props.data.products || []
+    products = products.filter((product) => {
+      return product.name.toLowerCase().match(this.state.query)
+    })
+    return products
+  }
+
   render() {
-    const products = this.props.data.products || []
     const { addItem } = this.props.cartActions
 
-    const productsList = products.map((product) => (
+    const productsList = this.filteredProducts().map((product) => (
       <ListItem button onClick={() => addItem(product)} key={product.id}>
         <ListItemAvatar>
           <Avatar alt={product.name} src={product.image.thumb} />
@@ -66,8 +78,33 @@ class HomePage extends Component {
       </ListItem>
     ))
 
+    const Adornment = () => {
+      if (this.state.query) {
+        return (
+          <InputAdornment position="end">
+            <IconButton onClick={() => this.setState({ query: "" })}>
+              <ClearIcon />
+            </IconButton>
+          </InputAdornment>
+        )
+      }
+
+      return null
+    }
+
     return (
       <div>
+        <FormControl fullWidth>
+          <InputLabel htmlFor="search">Search</InputLabel>
+          <Input
+            id="search"
+            placeholder="Type product..."
+            value={this.state.query}
+            onChange={(event) => this.setState({ query: event.target.value })}
+            autoComplete="off"
+            endAdornment={<Adornment />}
+          />
+        </FormControl>
         <List>
           {productsList}
         </List>
