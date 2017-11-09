@@ -8,11 +8,9 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  # def default_url(*args)
-  #   if model.imageable_type == "User"
-  #     ActionController::Base.helpers.asset_path("defaults/profile.png")
-  #   end
-  # end
+  def default_url(*args)
+    ActionController::Base.helpers.asset_path("defaults/product.jpeg")
+  end
 
   version :thumb do
     process resize_to_fit: [100, 100]
