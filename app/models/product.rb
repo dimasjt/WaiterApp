@@ -13,6 +13,7 @@
 #  description :text
 #  sku         :string
 #  barcode     :string
+#  deleted_at  :datetime
 #
 # Indexes
 #
@@ -34,4 +35,11 @@ class Product < ApplicationRecord
   delegate :name, to: :category, prefix: true
 
   validates :name, presence: true
+
+  scope :available, -> { where(deleted_at: nil) }
+  scope :deleted, -> { where.not(deleted_at: nil)}
+
+  def delete!
+    update(deleted_at: Time.now)
+  end
 end

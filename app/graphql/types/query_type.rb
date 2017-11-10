@@ -3,9 +3,13 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :products do
     type types[Types::ProductType]
+    argument :scope, types.String, default_value: "available"
     resolve ->(obj, args, ctx) {
-      return [] unless ctx[:current_shop].present?
-      ctx[:current_shop].products
+      unless ctx[:current_shop].present? || %w[available all deleted].include?(args[:scope])
+        return []
+      end
+
+      ctx[:current_shop].products.send(args[:scope])
     }
   end
 
@@ -13,7 +17,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::ProductType
     argument :id, !types.ID
     resolve ->(obj, args, ctx) {
-      ctx[:current_shop].products.find(args[:id])
+      ctx[:current_shop].products.available.find(args[:id])
     }
   end
 
@@ -27,7 +31,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :categories do
     type types[Types::CategoryType]
     resolve -> (obj, args, ctx) {
-      Category.all
+      ctx[:current_shop].categories
     }
   end
 
