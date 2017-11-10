@@ -13,6 +13,7 @@
 #  description :text
 #  sku         :string
 #  barcode     :string
+#  deleted_at  :datetime
 #
 # Indexes
 #
@@ -27,10 +28,11 @@
 
 FactoryBot.define do
   factory :product do
-    name "MyString"
-    price "MyString"
-    shop nil
-    image "MyString"
-    category nil
+    name { Faker::Name.name }
+    price { 20_000 }
+    # image "MyString"
+
+    association :shop, factory: :shop
+    association :category, factory: :category
   end
 end

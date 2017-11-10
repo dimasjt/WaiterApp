@@ -15,6 +15,8 @@
 
 FactoryBot.define do
   factory :category do
-    name "MyString"
+    name { Faker::Commerce.material }
+
+    association :shop, factory: :shop
   end
 end
