@@ -30,6 +30,7 @@ import ProductPage from "../pages/ProductPage"
 const styleSheet = () => ({
   container: {
     padding: 10,
+    paddingTop: 0,
   },
   title: {
     flex: 1,

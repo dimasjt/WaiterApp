@@ -14,7 +14,7 @@ import {
 import {
   Remove as RemoveIcon,
 } from "material-ui-icons"
-import { graphql } from "react-apollo"
+import { graphql, compose } from "react-apollo"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { withStyles } from "material-ui/styles"
@@ -33,7 +33,7 @@ const styleSheet = () => ({
 })
 
 class HomePage extends Component {
-  state = { query: "" }
+  state = { query: "", category: "all" }
 
   showRemoveButton(product) {
     const { cart, classes } = this.props
@@ -54,9 +54,16 @@ class HomePage extends Component {
   }
 
   filteredProducts() {
-    let products = this.props.data.products || []
+    let products = this.props.productQuery.products || []
     products = products.filter((product) => {
-      return product.name.toLowerCase().match(this.state.query)
+      let categoryMatch
+      if (this.state.category !== "all") {
+        categoryMatch = product.category_id === this.state.category
+      } else {
+        categoryMatch = true
+      }
+
+      return product.name.toLowerCase().match(this.state.query) && categoryMatch
     })
     return products
   }
@@ -82,7 +89,9 @@ class HomePage extends Component {
         <SearchProduct
           query={this.state.query}
           clearQuery={() => this.setState({ query: "" })}
-          onChange={(value) => this.setState({ query: value })}
+          queryChange={(value) => this.setState({ query: value })}
+          category={this.state.category}
+          categoryChange={(value) => this.setState({ category: value })}
         />
         <List>
           {productsList}
@@ -93,7 +102,7 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  data: PropTypes.object.isRequired,
+  productQuery: PropTypes.object,
   cartActions: PropTypes.object.isRequired,
   cart: PropTypes.object,
   classes: PropTypes.object,
@@ -107,4 +116,4 @@ const mapDispatchToProps = (dispatch) => ({
 const ConnectStyle = withStyles(styleSheet)(HomePage)
 const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(ConnectStyle)
 
-export default graphql(GET_PRODUCTS)(ConnectRedux)
+export default compose(graphql(GET_PRODUCTS, { name: "productQuery" }))(ConnectRedux)
