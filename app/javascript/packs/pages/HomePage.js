@@ -11,11 +11,8 @@ import {
   ListItemText,
   ListItemSecondaryAction,
 } from "material-ui/List"
-import Input, { InputLabel, InputAdornment } from "material-ui/Input"
-import { FormControl } from "material-ui/Form"
 import {
   Remove as RemoveIcon,
-  Clear as ClearIcon,
 } from "material-ui-icons"
 import { graphql } from "react-apollo"
 import { connect } from "react-redux"
@@ -25,6 +22,8 @@ import PropTypes from "prop-types"
 
 import { GET_PRODUCTS } from "../queries"
 import * as cartActions from "../actions/cart"
+
+import SearchProduct from "../components/SearchProduct"
 
 const styleSheet = () => ({
   removeContainer: {
@@ -78,33 +77,13 @@ class HomePage extends Component {
       </ListItem>
     ))
 
-    const Adornment = () => {
-      if (this.state.query) {
-        return (
-          <InputAdornment position="end">
-            <IconButton onClick={() => this.setState({ query: "" })}>
-              <ClearIcon />
-            </IconButton>
-          </InputAdornment>
-        )
-      }
-
-      return null
-    }
-
     return (
       <div>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="search">Search</InputLabel>
-          <Input
-            id="search"
-            placeholder="Type product..."
-            value={this.state.query}
-            onChange={(event) => this.setState({ query: event.target.value })}
-            autoComplete="off"
-            endAdornment={<Adornment />}
-          />
-        </FormControl>
+        <SearchProduct
+          query={this.state.query}
+          clearQuery={() => this.setState({ query: "" })}
+          onChange={(value) => this.setState({ query: value })}
+        />
         <List>
           {productsList}
         </List>

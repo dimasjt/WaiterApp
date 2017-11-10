@@ -13,6 +13,7 @@ export default gql`
         thumb
         small
       }
+      category_id
       sku
       description
     }
