@@ -116,4 +116,7 @@ const mapDispatchToProps = (dispatch) => ({
 const ConnectStyle = withStyles(styleSheet)(HomePage)
 const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(ConnectStyle)
 
-export default compose(graphql(GET_PRODUCTS, { name: "productQuery" }))(ConnectRedux)
+export default compose(graphql(GET_PRODUCTS, {
+  name: "productQuery",
+  options: { fetchPolicy: "network-only" },
+}))(ConnectRedux)

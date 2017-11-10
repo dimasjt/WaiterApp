@@ -4,7 +4,6 @@ import {
   IconButton,
 } from "material-ui"
 import {
-  Delete as DeleteIcon,
   ModeEdit as EditIcon,
 } from "material-ui-icons"
 import { graphql } from "react-apollo"
@@ -12,6 +11,8 @@ import { withStyles } from "material-ui/styles"
 import PropTypes from "prop-types"
 
 import { GET_PRODUCT } from "../queries"
+
+import DeleteProductButton from "../components/buttons/DeleteProductButton"
 
 const styleSheet = () => ({
   center: {
@@ -24,7 +25,7 @@ const styleSheet = () => ({
 
 class ProductPage extends Component {
   render() {
-    const { data, classes } = this.props
+    const { data, classes, history } = this.props
     const product = data.product
 
     if (!product) {
@@ -66,9 +67,10 @@ class ProductPage extends Component {
             </TableRow>
             <TableRow>
               <TableCell className={classes.center} colSpan={2}>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
+                <DeleteProductButton
+                  id={product.id}
+                  onSuccess={() => history.replace("/products")}
+                />
                 <IconButton>
                   <EditIcon />
                 </IconButton>
@@ -84,6 +86,7 @@ class ProductPage extends Component {
 ProductPage.propTypes = {
   data: PropTypes.object,
   classes: PropTypes.object,
+  history: PropTypes.object,
 }
 
 const ConnectStyle = withStyles(styleSheet)(ProductPage)

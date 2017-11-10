@@ -11,7 +11,6 @@ import {
   ListItemSecondaryAction,
 } from "material-ui/List"
 import {
-  Delete as DeleteIcon,
   ModeEdit as EditIcon,
 } from "material-ui-icons"
 import { graphql, compose } from "react-apollo"
@@ -23,17 +22,13 @@ import { DELETE_PRODUCT } from "../mutations"
 import confirm from "../util/confirm"
 
 import SearchProduct from "../components/SearchProduct"
+import DeleteProductButton from "../components/buttons/DeleteProductButton"
 
 class ProductsPage extends Component {
   state = {
     openDialog: false,
     query: "",
     category: "all",
-  }
-
-  onRequestClose = (value) => {
-    console.log(value)
-    this.setState({ openDialog: false })
   }
 
   handleConfirm = () => {
@@ -77,9 +72,10 @@ class ProductsPage extends Component {
           <IconButton>
             <EditIcon />
           </IconButton>
-          <IconButton onClick={() => this.props.deleteProduct(product.id)}>
-            <DeleteIcon />
-          </IconButton>
+          <DeleteProductButton
+            id={product.id}
+            onSuccess={() => data.refetch()}
+          />
         </ListItemSecondaryAction>
       </ListItem>
     ))
@@ -105,21 +101,10 @@ ProductsPage.propTypes = {
     loading: PropTypes.bool,
     products: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  deleteProduct: PropTypes.func.isRequired,
   history: PropTypes.object,
 }
 
 export default compose(
-  graphql(GET_PRODUCTS),
-  graphql(DELETE_PRODUCT, {
-    props: ({ ownProps, mutate }) => ({
-      deleteProduct(id) {
-        confirm().then(() => {
-          mutate({ variables: { id } }).then(() => {
-            ownProps.data.refetch()
-          })
-        }, () => { })
-      },
-    }),
-  }),
+  graphql(GET_PRODUCTS, { options: { fetchPolicy: "network-only" } }),
+  graphql(DELETE_PRODUCT, { name: "mutateDelete" }),
 )(ProductsPage)
