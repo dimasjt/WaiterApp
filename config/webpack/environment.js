@@ -13,7 +13,9 @@ if (process.env.NODE_ENV === "development") {
 
 const webpackConfig = Object.assign({}, environment.toWebpackConfig(), {
   entry: {
-    application: entries,
+    application: [
+      "babel-polyfill",
+    ].concat(entries),
   },
 })
 
