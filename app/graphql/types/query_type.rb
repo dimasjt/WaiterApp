@@ -9,6 +9,14 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :product do
+    type Types::ProductType
+    argument :id, !types.ID
+    resolve ->(obj, args, ctx) {
+      ctx[:current_shop].products.find(args[:id])
+    }
+  end
+
   field :users do
     type types[Types::UserType]
     resolve ->(obj, args, ctx) {

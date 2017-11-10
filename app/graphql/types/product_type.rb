@@ -8,4 +8,5 @@ Types::ProductType = GraphQL::ObjectType.define do
   field :description, types.String
   field :category_name, types.String
   field :image, Types::Format::ImageType
+  field :created_at, Types::Format::DateTimeType
 end

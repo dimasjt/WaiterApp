@@ -25,6 +25,7 @@ import CartsPage from "../pages/CartsPage"
 import DetailCartPage from "../pages/DetailCartPage"
 import CheckoutPage from "../pages/CheckoutPage"
 import OrdersPage from "../pages/OrdersPage"
+import ProductPage from "../pages/ProductPage"
 
 const styleSheet = () => ({
   container: {
@@ -87,6 +88,7 @@ class Routes extends Component {
               <Route path="/home" component={HomePage} />
               <Route exact path="/products" component={ProductsPage} />
               <Route path="/products/new" component={AddProductPage} />
+              <Route path="/products/:id" component={ProductPage} />
               <Route path="/cart" component={CartPage} />
               <Route path="/carts" component={CartsPage} exact />
               <Route path="/carts/:id" component={DetailCartPage} />

@@ -41,12 +41,13 @@ class ProductsPage extends Component {
   }
 
   render() {
-    const { products, loading } = this.props.data
+    const { data, history } = this.props
+    const { products, loading } = data
 
     if (loading) { return null }
 
     const items = products.map((product) => (
-      <ListItem button key={product.id}>
+      <ListItem button key={product.id} onClick={() => history.push(`/products/${product.id}`)}>
         <ListItemAvatar>
           <Avatar src={product.image.small} />
         </ListItemAvatar>
@@ -80,6 +81,7 @@ ProductsPage.propTypes = {
     products: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   deleteProduct: PropTypes.func.isRequired,
+  history: PropTypes.object,
 }
 
 export default compose(
