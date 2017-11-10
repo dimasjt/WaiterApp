@@ -22,9 +22,13 @@ import { DELETE_PRODUCT } from "../mutations"
 
 import confirm from "../util/confirm"
 
+import SearchProduct from "../components/SearchProduct"
+
 class ProductsPage extends Component {
   state = {
     openDialog: false,
+    query: "",
+    category: "all",
   }
 
   onRequestClose = (value) => {
@@ -40,13 +44,27 @@ class ProductsPage extends Component {
     })
   }
 
+  filteredProducts() {
+    let products = this.props.data.products || []
+    products = products.filter((product) => {
+      let categoryMatch
+      if (this.state.category !== "all") {
+        categoryMatch = product.category_id === this.state.category
+      } else {
+        categoryMatch = true
+      }
+
+      return product.name.toLowerCase().match(this.state.query) && categoryMatch
+    })
+    return products
+  }
+
   render() {
     const { data, history } = this.props
-    const { products, loading } = data
 
-    if (loading) { return null }
+    if (data.loading) { return null }
 
-    const items = products.map((product) => (
+    const items = this.filteredProducts().map((product) => (
       <ListItem button key={product.id} onClick={() => history.push(`/products/${product.id}`)}>
         <ListItemAvatar>
           <Avatar src={product.image.small} />
@@ -67,6 +85,13 @@ class ProductsPage extends Component {
     ))
     return (
       <div>
+        <SearchProduct
+          query={this.state.query}
+          clearQuery={() => this.setState({ query: "" })}
+          queryChange={(value) => this.setState({ query: value })}
+          category={this.state.category}
+          categoryChange={(value) => this.setState({ category: value })}
+        />
         <List>
           {items}
         </List>
