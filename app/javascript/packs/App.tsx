@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles"
 import { ApolloProvider } from "react-apollo"
 import { ConnectedRouter } from "react-router-redux"

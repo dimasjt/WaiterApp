@@ -5,7 +5,7 @@ let entries
 if (process.env.NODE_ENV === "development") {
   entries = [
     "react-hot-loader/patch",
-    "./app/javascript/packs/index.dev.js",
+    "./app/javascript/packs/index.dev.tsx",
   ]
 } else {
   entries = "./app/javascript/packs/index.js"
