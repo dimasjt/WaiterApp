@@ -105,6 +105,6 @@ ProductsPage.propTypes = {
 }
 
 export default compose(
-  graphql(GET_PRODUCTS, { options: { fetchPolicy: "network-only" } }),
+  graphql(GET_PRODUCTS, { options: { variables: { scope: "all" }, fetchPolicy: "network-only" } }),
   graphql(DELETE_PRODUCT, { name: "mutateDelete" }),
 )(ProductsPage)

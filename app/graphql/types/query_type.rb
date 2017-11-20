@@ -17,7 +17,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::ProductType
     argument :id, !types.ID
     resolve ->(obj, args, ctx) {
-      ctx[:current_shop].products.available.find(args[:id])
+      ctx[:current_shop].products.find(args[:id])
     }
   end
 

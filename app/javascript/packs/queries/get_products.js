@@ -1,8 +1,8 @@
 import { gql } from "react-apollo"
 
 export default gql`
-  query products {
-    products {
+  query products($scope: String) {
+    products(scope: $scope) {
       id
       name
       price {
