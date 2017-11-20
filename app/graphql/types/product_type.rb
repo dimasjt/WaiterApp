@@ -10,4 +10,5 @@ Types::ProductType = GraphQL::ObjectType.define do
   field :category_name, types.String
   field :image, Types::Format::ImageType
   field :created_at, Types::Format::DateTimeType
+  field :in_stock, types.Boolean
 end

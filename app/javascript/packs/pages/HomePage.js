@@ -30,6 +30,9 @@ const styleSheet = () => ({
     display: "flex",
     alignItems: "center",
   },
+  notAvailable: {
+    backgroundColor: "#b5b5b5",
+  },
 })
 
 class HomePage extends Component {
@@ -68,21 +71,39 @@ class HomePage extends Component {
     return products
   }
 
-  render() {
-    const { addItem } = this.props.cartActions
+  addItem = (product) => {
+    return () => {
+      if (product.in_stock) {
+        this.props.cartActions.addItem(product)
+      }
+    }
+  }
 
-    const productsList = this.filteredProducts().map((product) => (
-      <ListItem button onClick={() => addItem(product)} key={product.id}>
-        <ListItemAvatar>
-          <Avatar alt={product.name} src={product.image.thumb} />
-        </ListItemAvatar>
-        <ListItemText
-          primary={product.name}
-          secondary={product.price.human}
-        />
-        {this.showRemoveButton(product)}
-      </ListItem>
-    ))
+  render() {
+    const { classes } = this.props
+
+    const productsList = this.filteredProducts().map((product) => {
+      const className = product.in_stock ? "" : classes.notAvailable
+      const productName = product.in_stock ? product.name : `(unavailable) ${product.name}`
+
+      return (
+        <ListItem
+          button
+          onClick={this.addItem(product)}
+          key={product.id}
+          className={className}
+        >
+          <ListItemAvatar>
+            <Avatar alt={product.name} src={product.image.thumb} />
+          </ListItemAvatar>
+          <ListItemText
+            primary={productName}
+            secondary={product.price.human}
+          />
+          {this.showRemoveButton(product)}
+        </ListItem>
+      )
+    })
 
     return (
       <div>
@@ -118,5 +139,5 @@ const ConnectRedux = connect(mapStateToProps, mapDispatchToProps)(ConnectStyle)
 
 export default compose(graphql(GET_PRODUCTS, {
   name: "productQuery",
-  options: { fetchPolicy: "network-only" },
+  options: { fetchPolicy: "network-only", variables: { scope: "all" } },
 }))(ConnectRedux)

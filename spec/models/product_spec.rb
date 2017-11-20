@@ -14,6 +14,7 @@
 #  sku         :string
 #  barcode     :string
 #  deleted_at  :datetime
+#  in_stock    :boolean          default(TRUE), not null
 #
 # Indexes
 #

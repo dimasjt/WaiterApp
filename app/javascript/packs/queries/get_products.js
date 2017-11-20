@@ -16,6 +16,7 @@ export default gql`
       category_id
       sku
       description
+      in_stock
     }
   }
 `
